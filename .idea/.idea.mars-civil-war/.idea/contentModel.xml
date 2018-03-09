@@ -13,8 +13,19 @@
           </e>
         </e>
         <e p="Scripts" t="Include">
+          <e p="ButtonManager.cs" t="Include" />
           <e p="Tank.cs" t="Include" />
           <e p="TankController.cs" t="Include" />
+          <e p="TankMovement.cs" t="Include" />
+        </e>
+        <e p="Sprites" t="Include">
+          <e p="Others" t="Include">
+            <e p="License.txt" t="Include" />
+            <e p="Spritesheet" t="Include">
+              <e p="tanks_spritesheetDefault.xml" t="Include" />
+              <e p="tanks_spritesheetRetina.xml" t="Include" />
+            </e>
+          </e>
         </e>
       </e>
       <e p="Library" t="ExcludeRecursive" />

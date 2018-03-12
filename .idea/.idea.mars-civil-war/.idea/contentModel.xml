@@ -13,10 +13,22 @@
           </e>
         </e>
         <e p="Scripts" t="Include">
+          <e p="Bomb" t="Include">
+            <e p="BombController.cs" t="Include" />
+          </e>
           <e p="ButtonManager.cs" t="Include" />
+          <e p="Camera" t="Include">
+            <e p="CameraFollow.cs" t="Include" />
+          </e>
+          <e p="Objects" t="Include">
+            <e p="BoxController.cs" t="Include" />
+            <e p="FuelController.cs" t="Include" />
+          </e>
           <e p="Tank.cs" t="Include" />
           <e p="TankController.cs" t="Include" />
-          <e p="TankMovement.cs" t="Include" />
+          <e p="TankMovements" t="Include">
+            <e p="TankMovement.cs" t="Include" />
+          </e>
         </e>
         <e p="Sprites" t="Include">
           <e p="Others" t="Include">

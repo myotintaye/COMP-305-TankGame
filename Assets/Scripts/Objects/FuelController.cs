@@ -12,8 +12,6 @@ public class FuelController : MonoBehaviour {
 	void Start () {
 		rBody = GetComponent<Rigidbody2D>();
 		animator = GetComponent<Animator>();
-		
-		Debug.Log("Fuel Tank Initiated");
 	}
 	
 	// Update is called once per frame

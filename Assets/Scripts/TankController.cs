@@ -5,8 +5,7 @@ using UnityEngineInternal;
 
 public class TankController : MonoBehaviour {
 
-	public float maxSpeed = 3f;
-	public float groundRadius = 0.2f;
+	public float maxSpeed = 2f;
 
 	private Rigidbody2D rBody;
 	private SpriteRenderer sRend;
@@ -14,14 +13,9 @@ public class TankController : MonoBehaviour {
 
 	private float moveH;
 	private float initialSpeed;
-	private float angle;
 
 	private bool isFired = false;
 	
-	
-//	private bool isRight = true;
-	
-//	private bool isGrounded = false;
 	
 	public Transform groundCheck;
 	public LayerMask defineGround;
@@ -43,22 +37,14 @@ public class TankController : MonoBehaviour {
 		if (Input.GetKey(KeyCode.Space) && isFired == false)
 		{
 			initialSpeed  = Input.GetAxis("Jump") * 5;
-			angle = 45; // temporary value;
-
 			
-			fire(initialSpeed, angle);
+			fire(initialSpeed);
 			isFired = true;
 		}
 	}
 	
 	void FixedUpdate()
 	{
-		// Checks whether character is grounded
-//		isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, defineGround);
-//		animator.SetBool("Ground", isGrounded);
-//        
-//		Debug.Log("Grounded? " + isGrounded.ToString());   
-		
 
 		// Read input
 		moveH = Input.GetAxis("Horizontal");
@@ -68,7 +54,6 @@ public class TankController : MonoBehaviour {
 
 		// Set character velocity
 		rBody.velocity = new Vector2(moveH * maxSpeed, 0);
-		// Shooting
 	}
 	
 	
@@ -85,7 +70,7 @@ public class TankController : MonoBehaviour {
 		}
 	}
 
-	void fire(double speed, double angle)
+	void fire(float speed)
 	{
 		Debug.Log("Firing, initial speed = " + speed.ToString());
 

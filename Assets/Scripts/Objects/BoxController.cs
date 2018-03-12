@@ -11,8 +11,6 @@ public class BoxController : MonoBehaviour {
 	void Start () {
 		rBody = GetComponent<Rigidbody2D>();
 		animator = GetComponent<Animator>();
-		
-		Debug.Log("Box Initiated");
 	}
 	
 	// Update is called once per frame

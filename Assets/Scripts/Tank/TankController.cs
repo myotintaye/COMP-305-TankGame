@@ -35,6 +35,7 @@ public class TankController : MonoBehaviour {
 	private int health = 100;
 	private int bombChance = 0;
     private int damage = 20;
+	private bool dealth = false;
  
 	
 	// Use this for initialization
@@ -89,10 +90,11 @@ public class TankController : MonoBehaviour {
 		if (col.gameObject.CompareTag("Bomb"))
 		{
 
-			Debug.Log("Hit by bomb");
             SpawnTooltip();
 			
 			health -= damage;
+			
+			checkHealth();
 			
 			/* Call game manager to update UI panel */
 			gameManager.SendMessage("UpdateHealth", this.gameObject);
@@ -160,6 +162,15 @@ public class TankController : MonoBehaviour {
 		tankFacingRight = false;
 	}
 
+	void checkHealth()
+	{
+		if (health <= 0)
+		{
+			/* Died */
+			dealth = true;
+		}
+	}
+	
 	public int GetHealth()
 	{
 		return health;
@@ -168,5 +179,10 @@ public class TankController : MonoBehaviour {
 	public int GetBombChance()
 	{
 		return bombChance;
+	}
+
+	public bool isDead()
+	{
+		return dealth;
 	}
 }

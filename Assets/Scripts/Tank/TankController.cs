@@ -1,11 +1,16 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngineInternal;
 
 public class TankController : MonoBehaviour {
 
 	public float maxSpeed = 2f;
+
+    public Transform canvas;
+    public GameObject tooltipTextPrefab;
 
 	private Rigidbody2D rBody;
 	private SpriteRenderer sRend;
@@ -28,6 +33,8 @@ public class TankController : MonoBehaviour {
 	public GameObject gameManager;
 
 	private int health = 100;
+    private int damage = 20;
+ 
 	
 	// Use this for initialization
 	void Start ()
@@ -82,15 +89,25 @@ public class TankController : MonoBehaviour {
 		{
 
 			Debug.Log("Hit by bomb");
+            SpawnTooltip();
 				
-			health -= 20;
+			health -= damage;
 			gameManager.SendMessage("UpdateHealth", this.gameObject);
 			
 		}
 	}
-	
 
-	void Fire(float speed)
+    private void SpawnTooltip()
+    {
+        var tooltipText = Instantiate(tooltipTextPrefab,transform.position, Quaternion.identity, canvas) as GameObject;
+      
+        var text = tooltipText.GetComponent<Text>();
+        text.text = (-damage).ToString();
+
+        Destroy(tooltipText, 4f);
+    }
+
+    void Fire(float speed)
 	{
 		Debug.Log("Firing, initial speed = " + speed.ToString());
 

@@ -219,6 +219,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 3
+  canvas: {fileID: 1405329363}
+  tooltipTextPrefab: {fileID: 1240533032432984, guid: e66d054add0ef9d428c759580d005fb5,
+    type: 2}
   groundCheck: {fileID: 0}
   defineGround:
     serializedVersion: 2
@@ -960,6 +963,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 3
+  canvas: {fileID: 1405329363}
+  tooltipTextPrefab: {fileID: 1240533032432984, guid: e66d054add0ef9d428c759580d005fb5,
+    type: 2}
   groundCheck: {fileID: 0}
   defineGround:
     serializedVersion: 2
@@ -1147,7 +1153,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1136388702}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.09, y: -0.43, z: 0.32421875}
+  m_LocalPosition: {x: 2.91, y: -0.43, z: 0.32421875}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
   - {fileID: 252486573}

@@ -25,9 +25,6 @@ public class BombController : MonoBehaviour {
 		
 	void OnCollisionEnter2D(Collision2D col)
 	{
-		Debug.Log("Triggered by bomb");
-		
-		Debug.Log(col.gameObject.name );
 		
 		if(col.gameObject.name == "Box")
 		{
@@ -36,6 +33,12 @@ public class BombController : MonoBehaviour {
 			Destroy(col.gameObject);
 		}
 		else if (col.gameObject.name == "Map")
+		{
+			Destroy(gameObject);
+		}
+
+		/* Avoid hit to be counted multiple times */
+		if (col.gameObject.CompareTag("Player"))
 		{
 			Destroy(gameObject);
 		}

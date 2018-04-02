@@ -97,7 +97,7 @@ public class LevelTwoManager : MonoBehaviour
 		
 		txtTankAHealth.text = "Health: " + tank1.GetComponent<TankController>().GetHealth().ToString();
 		txtTankBHealth.text = "Health: " + tank2.GetComponent<TankController>().GetHealth().ToString();
-		txtTankABomb.text = "Bomb: " + tank1.GetComponent<TankController>().GetBombChance().ToString();
+ 		txtTankABomb.text = "Bomb: " + tank1.GetComponent<TankController>().GetBombChance().ToString();
 		txtTankBBomb.text = "Bomb: " + tank2.GetComponent<TankController>().GetBombChance().ToString();
 		
 	}

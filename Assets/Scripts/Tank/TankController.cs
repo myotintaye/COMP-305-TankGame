@@ -21,7 +21,7 @@ public class TankController : MonoBehaviour {
 
 	private bool isFired = false;
 	
-	public Transform groundCheck;
+//	public Transform groundCheck;
 	public LayerMask defineGround;
 
 	public GameObject bombPrefab;
@@ -91,7 +91,6 @@ public class TankController : MonoBehaviour {
 
 			Debug.Log("Hit by bomb");
             SpawnTooltip();
-				
 			
 			health -= damage;
 			
@@ -110,6 +109,7 @@ public class TankController : MonoBehaviour {
 
         Destroy(tooltipText, 4f);
     }
+	
 
     void Fire(float speed)
 	{

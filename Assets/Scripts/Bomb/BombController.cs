@@ -17,11 +17,6 @@ public class BombController : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-//		Debug.Log("Bomb Position = " + gameObject.transform.position);
-//		if (gameObject.transform.position.y < -10)
-//		{
-//			Destroy(gameObject);
-//		}
 	}
 		
 	void OnCollisionEnter2D(Collision2D col)
@@ -36,13 +31,13 @@ public class BombController : MonoBehaviour {
         }
         else if (col.gameObject.name == "Map")
         {
+	        Debug.Log("Hit map");
             Destroy(gameObject);
         }
 
         /* Avoid hit to be counted multiple times */
         if (col.gameObject.CompareTag("Player"))
         {
-
             Destroy(gameObject);
         }
 
@@ -50,7 +45,7 @@ public class BombController : MonoBehaviour {
 
     private void SpawnExplosion()
     {
-        var explosion = Instantiate(explosionPrefab,transform.position, Quaternion.identity) as GameObject;
+        var explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity) as GameObject;
         Destroy(explosion, 2f);
     }
 }

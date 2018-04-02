@@ -17,9 +17,11 @@ public class LevelTwoManager : MonoBehaviour
 	
 	public Text txtTankA;
 	public Text txtTankAHealth;
+	public Text txtTankABomb;
 	
 	public Text txtTankB;
 	public Text txtTankBHealth;
+	public Text txtTankBBomb;
 	
 	public Text txtRound;
 	public Text txtTimeLeft;
@@ -95,6 +97,8 @@ public class LevelTwoManager : MonoBehaviour
 		
 		txtTankAHealth.text = "Health: " + tank1.GetComponent<TankController>().GetHealth().ToString();
 		txtTankBHealth.text = "Health: " + tank2.GetComponent<TankController>().GetHealth().ToString();
+		txtTankABomb.text = "Bomb: " + tank1.GetComponent<TankController>().GetBombChance().ToString();
+		txtTankBBomb.text = "Bomb: " + tank2.GetComponent<TankController>().GetBombChance().ToString();
 		
 	}
 
@@ -112,5 +116,22 @@ public class LevelTwoManager : MonoBehaviour
 		{
 			txtTankBHealth.text = "Health: " + tank.GetComponent<TankController>().GetHealth().ToString();
 		}
+	}
+
+	void UpdateBombChance(GameObject tank)
+	{
+		String firedByTank = tank.name;
+
+		Debug.Log("Fired by tank = " + firedByTank);
+
+		if (firedByTank == "Tank1")
+		{
+			txtTankABomb.text = "Bomb: " + tank.GetComponent<TankController>().GetBombChance().ToString();
+		}
+		else
+		{
+			txtTankBBomb.text = "Bomb: " + tank.GetComponent<TankController>().GetBombChance().ToString();
+		}
+
 	}
 }

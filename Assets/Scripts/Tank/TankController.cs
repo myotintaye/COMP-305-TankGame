@@ -28,6 +28,7 @@ public class TankController : MonoBehaviour {
 	public GameObject gameManager;
 
 	private int health = 100;
+	private int bombChance = 0;
 	
 	// Use this for initialization
 	void Start ()
@@ -84,6 +85,9 @@ public class TankController : MonoBehaviour {
 			Debug.Log("Hit by bomb");
 				
 			health -= 20;
+			
+			
+			/* Call game manager to update UI panel */
 			gameManager.SendMessage("UpdateHealth", this.gameObject);
 			
 		}
@@ -112,6 +116,11 @@ public class TankController : MonoBehaviour {
 			
 			obj.GetComponent<Rigidbody2D>().velocity = new Vector2(-1f, 1f) * initialSpeed;
 		}
+		
+		bombChance -= 1;
+		
+		/* Call game manager to update UI panel */
+		gameManager.SendMessage("UpdateBombChance", this.gameObject);
 	}
 	
 
@@ -120,11 +129,13 @@ public class TankController : MonoBehaviour {
 	{
 		playerActivated = true;
 		isFired = false;
+		bombChance = 1;
 	}
 
 	void Deactivate()
 	{
 		playerActivated = false;
+		bombChance = 0;
 	}
 
 	void SetTankDirectionToLeft()
@@ -135,5 +146,10 @@ public class TankController : MonoBehaviour {
 	public int GetHealth()
 	{
 		return health;
+	}
+
+	public int GetBombChance()
+	{
+		return bombChance;
 	}
 }

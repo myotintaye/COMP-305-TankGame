@@ -5,7 +5,8 @@ using System.ComponentModel;
 using UnityEngine;
 
 public class BombController : MonoBehaviour {
-	
+
+    public GameObject explosionPrefab;
 	private Rigidbody2D rBody;
 
 	// Use this for initialization
@@ -24,23 +25,32 @@ public class BombController : MonoBehaviour {
 	}
 		
 	void OnCollisionEnter2D(Collision2D col)
-	{
-		
-		if(col.gameObject.name == "Box")
-		{
-			Debug.Log("Hit box");
-			Destroy(gameObject);
-			Destroy(col.gameObject);
-		}
-		else if (col.gameObject.name == "Map")
-		{
-			Destroy(gameObject);
-		}
+    {
+        SpawnExplosion();
 
-		/* Avoid hit to be counted multiple times */
-		if (col.gameObject.CompareTag("Player"))
-		{
-			Destroy(gameObject);
-		}
-	}
+        if (col.gameObject.name == "Box")
+        {
+            Debug.Log("Hit box");
+            Destroy(gameObject);
+            Destroy(col.gameObject);
+        }
+        else if (col.gameObject.name == "Map")
+        {
+            Destroy(gameObject);
+        }
+
+        /* Avoid hit to be counted multiple times */
+        if (col.gameObject.CompareTag("Player"))
+        {
+
+            Destroy(gameObject);
+        }
+
+    }
+
+    private void SpawnExplosion()
+    {
+        var explosion = Instantiate(explosionPrefab,transform.position, Quaternion.identity) as GameObject;
+        Destroy(explosion, 2f);
+    }
 }

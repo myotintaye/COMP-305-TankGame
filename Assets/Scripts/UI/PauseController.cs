@@ -32,5 +32,10 @@ public class PauseController : MonoBehaviour {
 		
 		Time.timeScale = Time.timeScale == 0 ? 1 : 0; // Toggle 
 	}
+
+	public void BackToHome()
+	{
+		
+	}
 	
 }

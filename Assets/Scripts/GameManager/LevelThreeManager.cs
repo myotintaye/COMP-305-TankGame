@@ -36,9 +36,9 @@ public class LevelThreeManager : MonoBehaviour {
 	
 	public Text txtRound;
 	public Text txtTimeLeft;
-
-	public GameObject gameOverPanel;
 	
+	public Text txtWinningMessage;	
+	public GameObject gameOverPanel;
 
 	// Use this for initialization
 	void Start () {
@@ -83,12 +83,14 @@ public class LevelThreeManager : MonoBehaviour {
 
 	bool checkWinning()
 	{
-		if (tankA1.GetComponent<TankController>().isDead() || tankA2.GetComponent<TankController>().isDead())
+		if (tankA1.GetComponent<TankController>().isDead() && tankA2.GetComponent<TankController>().isDead())
 		{
+			txtWinningMessage.text = "Team B wins the game!";
 			return true;
 		}
-		else if (tankB1.GetComponent<TankController>().isDead() || tankB2.GetComponent<TankController>().isDead())
+		else if (tankB1.GetComponent<TankController>().isDead() && tankB2.GetComponent<TankController>().isDead())
 		{
+			txtWinningMessage.text = "Team A wins the game!";
 			return true;
 		}
 		else

@@ -2599,6 +2599,7 @@ MonoBehaviour:
   txtTankB2Bomb: {fileID: 1145637340}
   txtRound: {fileID: 992685502}
   txtTimeLeft: {fileID: 1325196088}
+  txtWinningMessage: {fileID: 25685347}
   gameOverPanel: {fileID: 1033812825}
 --- !u!1 &1145637338
 GameObject:

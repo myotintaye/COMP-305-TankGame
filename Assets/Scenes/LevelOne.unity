@@ -483,7 +483,7 @@ Camera:
   far clip plane: 1000
   field of view: 56
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 5.6431947
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -506,7 +506,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 259874773}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.3809652, y: -3.3035557, z: -34.30002}
+  m_LocalPosition: {x: 1.66, y: 0.27, z: -34.30002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 651785207}
@@ -524,8 +524,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51b5833703b0d42808fcd7469d60acc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tankPosition: {fileID: 1933838072}
-  tankMoveThreshold: {fileID: 651785207}
 --- !u!1 &651785206
 GameObject:
   m_ObjectHideFlags: 0
@@ -821,8 +819,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1458388591}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.626, y: -0.117, z: 0}
-  m_LocalScale: {x: 1.870481, y: 1.1799719, z: 1.870481}
+  m_LocalPosition: {x: 1.626, y: 0.246, z: 0}
+  m_LocalScale: {x: 1.870481, y: 1.2606878, z: 1.870481}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -1187,6 +1185,7 @@ MonoBehaviour:
   playerActivated: 0
   tankFacingRight: 1
   gameManager: {fileID: 0}
+  deadImage: {fileID: 0}
 --- !u!95 &1933838076
 Animator:
   serializedVersion: 3

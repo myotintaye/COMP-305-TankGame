@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class LevelOneManager : MonoBehaviour {
 
 
-	public float timer = 1f;
+	public float timer = 30f;
 	
 	public int totalRound;
 	public int currentPlayer;
@@ -15,6 +15,10 @@ public class LevelOneManager : MonoBehaviour {
 	public Camera mainCamera;
 	
 	public GameObject tankA1;
+	
+		
+	public Text txtWinningMessage;	
+	public GameObject gameOverPanel;
 
 	// Use this for initialization
 	void Start () {
@@ -37,8 +41,10 @@ public class LevelOneManager : MonoBehaviour {
 
 		if (timer <= 0)
 		{
-			tankA1.SendMessage("Activate");
-			timer = 1;
+			/* Game over */
+			
+			txtWinningMessage.text = "Congratulations!";
+			gameOverPanel.SetActive(true);
 		}
 	}
 

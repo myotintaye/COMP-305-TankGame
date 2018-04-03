@@ -9,6 +9,8 @@ public class LevelTwoManager : MonoBehaviour
 
 	public float timer = 10f;
 	
+	public Camera mainCamera;
+	
 	public int totalRound;
 	public int currentPlayer;
 
@@ -25,6 +27,9 @@ public class LevelTwoManager : MonoBehaviour
 	
 	public Text txtRound;
 	public Text txtTimeLeft;
+	
+	public Text txtWinningMessage;	
+	public GameObject gameOverPanel;
 
 	// Use this for initialization
 	void Start ()
@@ -32,6 +37,12 @@ public class LevelTwoManager : MonoBehaviour
 		totalRound = 1;
 		
 		currentPlayer = 0; 
+			
+		float zCamera = mainCamera.transform.position.z;
+		mainCamera.transform.position = new Vector3(tank1.transform.position.x, tank1.transform.position.y, zCamera);
+		
+		mainCamera.SendMessage("SetFollowedTank", tank1);
+
 
 		tank1.SendMessage("Activate");
 		tank2.SendMessage("Deactivate");
@@ -52,6 +63,31 @@ public class LevelTwoManager : MonoBehaviour
 		}
 		
 		txtTimeLeft.text = "Time: " + Mathf.FloorToInt(timer).ToString();
+		
+		if (checkWinning())
+		{
+			/* Game over */
+			gameOverPanel.SetActive(true);
+		};
+	}
+	
+	
+	bool checkWinning()
+	{
+		if (tank1.GetComponent<TankController>().isDead())
+		{
+			txtWinningMessage.text = "Tank B wins the game!";
+			return true;
+		}
+		else if (tank2.GetComponent<TankController>().isDead())
+		{
+			txtWinningMessage.text = "Tank A wins the game!";
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 	
 	
@@ -64,6 +100,10 @@ public class LevelTwoManager : MonoBehaviour
 			tank1.SendMessage("Activate");
 			tank2.SendMessage("Deactivate");
 			
+			float zCamera = mainCamera.transform.position.z;
+			mainCamera.transform.position = new Vector3(tank1.transform.position.x, tank1.transform.position.y, zCamera);
+			mainCamera.SendMessage("SetFollowedTank", tank1);
+			
 			/* Update round information */
 			totalRound++;
 		}
@@ -71,6 +111,11 @@ public class LevelTwoManager : MonoBehaviour
 		{
 			tank1.SendMessage("Deactivate");
 			tank2.SendMessage("Activate");		
+			
+			float zCamera = mainCamera.transform.position.z;
+			mainCamera.transform.position = new Vector3(tank2.transform.position.x, tank2.transform.position.y, zCamera);
+			mainCamera.SendMessage("SetFollowedTank", tank2);
+
 		}
 
 		/* Reset current player */
@@ -134,4 +179,20 @@ public class LevelTwoManager : MonoBehaviour
 		}
 
 	}
+	
+	void UpdateDealthInfo(GameObject tank)
+	{
+		String deadTank = tank.name;
+
+		if (deadTank == "Tank1")
+		{
+			txtTankAHealth.text = "Tank A is dead";
+		}
+		else if (deadTank == "Tank2")
+		{
+			txtTankBHealth.text = "Tank B is dead";
+		}
+	
+	}
+
 }

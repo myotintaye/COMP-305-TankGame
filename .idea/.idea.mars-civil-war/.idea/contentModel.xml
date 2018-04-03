@@ -16,7 +16,6 @@
           <e p="Bomb" t="Include">
             <e p="BombController.cs" t="Include" />
           </e>
-          <e p="ButtonManager.cs" t="Include" />
           <e p="Camera" t="Include">
             <e p="CameraFollow.cs" t="Include" />
           </e>
@@ -34,6 +33,10 @@
           </e>
           <e p="TankMovements" t="Include">
             <e p="TankMovement.cs" t="Include" />
+          </e>
+          <e p="UI" t="Include">
+            <e p="ButtonManager.cs" t="Include" />
+            <e p="PauseController.cs" t="Include" />
           </e>
         </e>
         <e p="Sprites" t="Include">

@@ -32,10 +32,12 @@ public class TankController : MonoBehaviour {
 
 	public GameObject gameManager;
 
-	private int health = 100;
+	private int health = 20;
 	private int bombChance = 0;
     private int damage = 20;
 	private bool dealth = false;
+
+	public Sprite deadImage;
  
 	
 	// Use this for initialization
@@ -144,30 +146,20 @@ public class TankController : MonoBehaviour {
 	
 
 
-	void Activate()
-	{
-		playerActivated = true;
-		isFired = false;
-		bombChance = 1;
-	}
-
-	void Deactivate()
-	{
-		playerActivated = false;
-		bombChance = 0;
-	}
-
-	void SetTankDirectionToLeft()
-	{
-		tankFacingRight = false;
-	}
-
 	void checkHealth()
 	{
 		if (health <= 0)
 		{
 			/* Died */
 			dealth = true;
+
+			/* Replace sprite renderer */
+			gameObject.GetComponent<SpriteRenderer>().sprite = deadImage; 
+			
+			/* Call game manager to update UI panel */
+			gameManager.SendMessage("UpdateBombChance", this.gameObject);
+			gameManager.SendMessage("UpdateDealthInfo", this.gameObject);
+			
 		}
 	}
 	
@@ -184,5 +176,24 @@ public class TankController : MonoBehaviour {
 	public bool isDead()
 	{
 		return dealth;
+	}
+	
+	
+	void Activate()
+	{
+		playerActivated = true;
+		isFired = false;
+		bombChance = 1;
+	}
+
+	void Deactivate()
+	{
+		playerActivated = false;
+		bombChance = 0;
+	}
+
+	void SetTankDirectionToLeft()
+	{
+		tankFacingRight = false;
 	}
 }

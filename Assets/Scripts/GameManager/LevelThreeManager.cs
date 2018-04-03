@@ -11,6 +11,8 @@ public class LevelThreeManager : MonoBehaviour {
 	public int totalRound;
 	public int currentPlayer;
 
+	public Camera mainCamera;
+	
 	public GameObject tankA1;
 	public GameObject tankA2;
 	public GameObject tankB1;
@@ -41,6 +43,11 @@ public class LevelThreeManager : MonoBehaviour {
 		totalRound = 1;
 		
 		currentPlayer = 0; 
+			
+		float zCamera = mainCamera.transform.position.z;
+		mainCamera.transform.position = new Vector3(tankA1.transform.position.x, tankA1.transform.position.y, zCamera);
+		
+		mainCamera.SendMessage("SetFollowedTank", tankA1);
 
 		tankA1.SendMessage("Activate");
 		tankA2.SendMessage("Deactivate");
@@ -61,10 +68,30 @@ public class LevelThreeManager : MonoBehaviour {
 		if (timer <= 0)
 		{
 			SwitchPlayer();
-			timer = 10;
 		}
 		
 		txtTimeLeft.text = "Time: " + Mathf.FloorToInt(timer).ToString();
+
+		if (checkWinning())
+		{
+			/* Game over */
+		};
+	}
+
+	bool checkWinning()
+	{
+		if (tankA1.GetComponent<TankController>().isDead() && tankA2.GetComponent<TankController>().isDead())
+		{
+			return true;
+		}
+		else if (tankB1.GetComponent<TankController>().isDead() && tankB2.GetComponent<TankController>().isDead())
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 	
 	//    Swtich player, tankA1 = 0, tankB1 = 1, tankA2 = 2, tankB2 = 3
@@ -82,26 +109,80 @@ public class LevelThreeManager : MonoBehaviour {
 		switch (currentPlayer)
 		{
 			case 0:
-				tankA1.SendMessage("Activate");
+				if (!tankA1.GetComponent<TankController>().isDead())
+				{
+					tankA1.SendMessage("Activate");
+					timer = 10;
+
+					float zCamera = mainCamera.transform.position.z;
+					mainCamera.transform.position = new Vector3(tankA1.transform.position.x, tankA1.transform.position.y, zCamera);
+					mainCamera.SendMessage("SetFollowedTank", tankA1);
+				}
+				else
+				{
+					/* Skip the player when dead */
+					timer = -1;
+				}
+				
+				/* New round */
 				totalRound++;
 				break;
 			
 			case 1:
-				tankB1.SendMessage("Activate");
+				if (!tankB1.GetComponent<TankController>().isDead())
+				{
+					tankB1.SendMessage("Activate");
+					timer = 10;
+					
+					float zCamera = mainCamera.transform.position.z;
+					mainCamera.transform.position = new Vector3(tankB1.transform.position.x, tankB1.transform.position.y, zCamera);
+					mainCamera.SendMessage("SetFollowedTank", tankB1);
+				}				
+				else
+				{
+					/* Skip the player when dead */
+					timer = -1;
+				}
+
 				break;
 			
 			case 2:
-				tankA2.SendMessage("Activate");
+				if (!tankA2.GetComponent<TankController>().isDead())
+				{
+					timer = 10;
+					tankA2.SendMessage("Activate");
+					
+					float zCamera = mainCamera.transform.position.z;
+					mainCamera.transform.position = new Vector3(tankA2.transform.position.x, tankA2.transform.position.y, zCamera);
+					mainCamera.SendMessage("SetFollowedTank", tankA2);
+				}
+				else
+				{
+					/* Skip the player when dead */
+					timer = -1;
+				}
+
 				break;
 			
 			case 3:
-				tankB2.SendMessage("Activate");
-				break;
+				if (!tankB2.GetComponent<TankController>().isDead())
+				{
+					timer = 10;
+					tankB2.SendMessage("Activate");
+					
+					float zCamera = mainCamera.transform.position.z;
+					mainCamera.transform.position = new Vector3(tankB2.transform.position.x, tankB2.transform.position.y, zCamera);
+					mainCamera.SendMessage("SetFollowedTank", tankB2);
+				}				
+				else
+				{
+					/* Skip the player when dead */
+					timer = -1;
+				}
 			
 			other:
 				break;
 		}
-
 
 		
 		UpdateInfoPanel();
@@ -112,27 +193,91 @@ public class LevelThreeManager : MonoBehaviour {
 	{
 		txtRound.text = "Round: " + totalRound.ToString();
 		
-		txtTankA1.text = "Tank A1 stand by";
-		txtTankA2.text = "Tank A2 stand by";
-		txtTankB1.text = "Tank B1 stand by";
+		if (!tankA1.GetComponent<TankController>().isDead())
+		{
+			txtTankA1.text = "Tank A1 standby";
+		}				
+		else
+		{
+			txtTankA1.text = "Tank A1 is dead";
+		}
+		
+		if (!tankB1.GetComponent<TankController>().isDead())
+		{
+			txtTankB1.text = "Tank B1 standby";
+		}				
+		else
+		{
+			txtTankB1.text = "Tank B1 is dead";
+		}
+		
+		
+		if (!tankA2.GetComponent<TankController>().isDead())
+		{
+			txtTankA2.text = "Tank A2 standby";
+		}				
+		else
+		{
+			txtTankA2.text = "Tank A2 is dead";
+		}
+		
+		
+		if (!tankB2.GetComponent<TankController>().isDead())
+		{
+			txtTankB2.text = "Tank B2 standby";
+		}				
+		else
+		{
+			txtTankB2.text = "Tank B2 is dead";
+		}
+		
 		txtTankB2.text = "Tank B2 stand by";
 		
 		switch (currentPlayer)
 		{
 			case 0:		
-				txtTankA1.text = "Tank A1 is playing";
+				if (!tankA1.GetComponent<TankController>().isDead())
+				{
+					txtTankA1.text = "Tank A1 is playing";
+				}				
+				else
+				{
+					txtTankA1.text = "Tank A1 is dead";
+				}
+				
 				break;
 			
 			case 1:
-				txtTankA2.text = "Tank A2 is playing";
+				if (!tankB1.GetComponent<TankController>().isDead())
+				{
+					txtTankB1.text = "Tank B1 is playing";
+				}				
+				else
+				{
+					txtTankB1.text = "Tank B1 is dead";
+				}
 				break;
 			
 			case 2:
-				txtTankB1.text = "Tank B1 is playing";
+				if (!tankA2.GetComponent<TankController>().isDead())
+				{
+					txtTankA2.text = "Tank A2 is playing";
+				}				
+				else
+				{
+					txtTankA2.text = "Tank A2 is dead";
+				}
 				break;
 			
 			case 3:
-				txtTankB2.text = "Tank B2 is playing";
+				if (!tankB2.GetComponent<TankController>().isDead())
+				{
+					txtTankB2.text = "Tank B2 is playing";
+				}				
+				else
+				{
+					txtTankB2.text = "Tank B2 is dead";
+				}
 				break;
 			
 			other:
@@ -200,5 +345,28 @@ public class LevelThreeManager : MonoBehaviour {
 		}
 
 	}
+
+	void UpdateDealthInfo(GameObject tank)
+	{
+		String deadTank = tank.name;
+
+		if (deadTank == "TankA1")
+		{
+			txtTankA1Health.text = "Tank A1 is dead";
+		}
+		else if (deadTank == "TankA2")
+		{
+			txtTankA2Health.text = "Tank A2 is dead";
+		}
+		else if (deadTank == "TankB1")
+		{
+			txtTankB1Health.text = "Tank B1 is dead";
+		}
+		else if (deadTank == "TankB2")
+		{
+			txtTankB2Health.text = "Tank B2 is dead";
+		}		
+	}
 	
+
 }

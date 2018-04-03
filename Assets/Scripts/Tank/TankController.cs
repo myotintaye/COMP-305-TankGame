@@ -32,7 +32,7 @@ public class TankController : MonoBehaviour {
 
 	public GameObject gameManager;
 
-	private int health = 20;
+	private int health = 40;
 	private int bombChance = 0;
     private int damage = 20;
 	private bool dealth = false;
@@ -113,7 +113,7 @@ public class TankController : MonoBehaviour {
         var text = tooltipText.GetComponent<Text>();
         text.text = (-damage).ToString();
 
-      //  Destroy(tooltipText, 4f);
+        Destroy(tooltipText, 4f);
     }
 	
 

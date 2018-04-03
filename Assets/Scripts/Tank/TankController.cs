@@ -107,11 +107,13 @@ public class TankController : MonoBehaviour {
     private void SpawnTooltip()
     {
         var tooltipText = Instantiate(tooltipTextPrefab,transform.position, Quaternion.identity, canvas) as GameObject;
+
+      //  tooltipText.transform.position = Camera.main.WorldToScreenPoint(transform.position);
       
         var text = tooltipText.GetComponent<Text>();
         text.text = (-damage).ToString();
 
-        Destroy(tooltipText, 4f);
+      //  Destroy(tooltipText, 4f);
     }
 	
 

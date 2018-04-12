@@ -50,6 +50,11 @@ public class ButtonManager : MonoBehaviour {
         SceneManager.LoadScene(newLevelStart);
     }
 
+    public void Btn_tankInfo(string newTankInfo)
+    {
+        SceneManager.LoadScene(newTankInfo);
+    }
+
     public void Btn_exit()
     {
         Application.Quit();

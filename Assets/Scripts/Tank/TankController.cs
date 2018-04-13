@@ -7,7 +7,7 @@ using UnityEngineInternal;
 
 public class TankController : MonoBehaviour {
 
-	public float maxSpeed = 2f;
+	public float maxSpeed = 1f;
 
     public Transform canvas;
     public GameObject tooltipTextPrefab;
@@ -46,6 +46,7 @@ public class TankController : MonoBehaviour {
 		rBody = GetComponent<Rigidbody2D>();
 //		sRend = GetComponent<SpriteRenderer>();
 		animator = GetComponent<Animator>();
+		rBody.centerOfMass = new Vector3(0, -1, 0);
 	}
 	
 	// Update is called once per frame
@@ -71,9 +72,40 @@ public class TankController : MonoBehaviour {
 
 			// Set character velocity
 			rBody.velocity = new Vector2(moveH * maxSpeed, 0);	
+			
+//			RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up, 1f, defineGround);
+//
+//			if (hit.collider != null && Mathf.Abs(hit.normal.x) > 0.1f)
+//			{
+//				rBody.velocity = new Vector2(rBody.velocity.x - (hit.normal.x * 0.2f), rBody.velocity.y);
+//				Debug.Log("Enter normalize, velocity = " + rBody.velocity.ToString());
+//			}
+
 		}
 	}
 	
+	// @NOTE Must be called from FixedUpdate() to work properly
+	void NormalizeSlope () {
+		// Attempt vertical normalization
+
+		bool grounded = true;
+		
+		if (grounded) {
+			RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up, 1f, defineGround);
+		
+			if (hit.collider != null && Mathf.Abs(hit.normal.x) > 0.1f) {
+				Rigidbody2D body = GetComponent<Rigidbody2D>();
+				// Apply the opposite force against the slope force 
+				// You will need to provide your own slopeFriction to stabalize movement
+				body.velocity = new Vector2(body.velocity.x - (hit.normal.x * 0.2f), body.velocity.y);
+
+				//Move Player up or down to compensate for the slope below them
+				Vector3 pos = transform.position;
+				pos.y += -hit.normal.x * Mathf.Abs(body.velocity.x) * Time.deltaTime * (body.velocity.x - hit.normal.x > 0 ? 1 : -1);
+				transform.position = pos;
+			}
+		}
+	}
 	
 	
 	void OnCollisionEnter2D(Collision2D col)
@@ -93,14 +125,18 @@ public class TankController : MonoBehaviour {
 		{
 
             SpawnTooltip();
+
+			if (!isDead())
+			{
+				health -= damage;
+
+				checkHealth();
+				
+				/* Call game manager to update UI panel */
+				gameManager.SendMessage("UpdateHealth", this.gameObject);
+			}
 			
-			health -= damage;
-			
-			checkHealth();
-			
-			/* Call game manager to update UI panel */
-			gameManager.SendMessage("UpdateHealth", this.gameObject);
-			
+
 		}
 	}
 
@@ -119,8 +155,7 @@ public class TankController : MonoBehaviour {
 
     void Fire(float speed)
 	{
-		Debug.Log("Firing, initial speed = " + speed.ToString());
-
+		
 		GameObject obj = GameObject.Instantiate(bombPrefab) as GameObject;
 		BombController bomb = obj.GetComponent<BombController>();
 		
@@ -186,12 +221,15 @@ public class TankController : MonoBehaviour {
 		playerActivated = true;
 		isFired = false;
 		bombChance = 1;
+		rBody.constraints = RigidbodyConstraints2D.None;
+
 	}
 
 	void Deactivate()
 	{
 		playerActivated = false;
 		bombChance = 0;
+		rBody.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
 	}
 
 	void SetTankDirectionToLeft()

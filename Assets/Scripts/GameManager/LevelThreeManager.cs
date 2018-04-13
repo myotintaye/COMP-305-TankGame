@@ -40,6 +40,8 @@ public class LevelThreeManager : MonoBehaviour {
 	public Text txtWinningMessage;	
 	public GameObject gameOverPanel;
 
+	private bool isInTransition = false;
+
 	// Use this for initialization
 	void Start () {
 		totalRound = 1;
@@ -69,16 +71,24 @@ public class LevelThreeManager : MonoBehaviour {
 
 		if (timer <= 0)
 		{
-			SwitchPlayer();
+			Transition();
 		}
-		
-		txtTimeLeft.text = "Time: " + Mathf.FloorToInt(timer).ToString();
+
+		if (!isInTransition)
+		{
+			txtTimeLeft.text = "Time: " + Mathf.FloorToInt(timer).ToString();			
+		}
 
 		if (checkWinning())
 		{
 			/* Game over */
 			gameOverPanel.SetActive(true);
 		};
+	}
+	
+	IEnumerator WaitForSwitch(){
+		yield return new WaitForSeconds(3);
+		yield return null;
 	}
 
 	bool checkWinning()
@@ -98,6 +108,22 @@ public class LevelThreeManager : MonoBehaviour {
 			return false;
 		}
 	}
+
+	void Transition()
+	{
+		isInTransition = true;
+		
+		tankA1.SendMessage("Deactivate");
+		tankA2.SendMessage("Deactivate");
+		tankB1.SendMessage("Deactivate");
+		tankB2.SendMessage("Deactivate");
+
+		timer = 2;
+
+		txtTimeLeft.text = "Switching Player";
+			
+		Invoke("SwitchPlayer", 2);
+	}
 	
 	//    Swtich player, tankA1 = 0, tankB1 = 1, tankA2 = 2, tankB2 = 3
 	void SwitchPlayer()
@@ -106,7 +132,6 @@ public class LevelThreeManager : MonoBehaviour {
 		tankA2.SendMessage("Deactivate");
 		tankB1.SendMessage("Deactivate");
 		tankB2.SendMessage("Deactivate");
-		
 		
 		/* Reset current player */
 		currentPlayer = (currentPlayer + 1) % 4;
@@ -189,7 +214,7 @@ public class LevelThreeManager : MonoBehaviour {
 				break;
 		}
 
-		
+		isInTransition = false;
 		UpdateInfoPanel();
 
 	}
@@ -236,7 +261,7 @@ public class LevelThreeManager : MonoBehaviour {
 			txtTankB2.text = "Tank B2 is dead";
 		}
 		
-		txtTankB2.text = "Tank B2 stand by";
+		txtTankB2.text = "Tank B2 standby";
 		
 		switch (currentPlayer)
 		{

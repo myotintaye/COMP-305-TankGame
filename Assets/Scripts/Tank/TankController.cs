@@ -46,6 +46,8 @@ public class TankController : MonoBehaviour {
 		rBody = GetComponent<Rigidbody2D>();
 //		sRend = GetComponent<SpriteRenderer>();
 		animator = GetComponent<Animator>();
+		
+		// Lower the center of mass to avoid rotation issues
 		rBody.centerOfMass = new Vector3(0, -1, 0);
 	}
 	
@@ -80,76 +82,96 @@ public class TankController : MonoBehaviour {
 //				rBody.velocity = new Vector2(rBody.velocity.x - (hit.normal.x * 0.2f), rBody.velocity.y);
 //				Debug.Log("Enter normalize, velocity = " + rBody.velocity.ToString());
 //			}
-
-		}
-	}
-	
-	// @NOTE Must be called from FixedUpdate() to work properly
-	void NormalizeSlope () {
-		// Attempt vertical normalization
-
-		bool grounded = true;
-		
-		if (grounded) {
-			RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up, 1f, defineGround);
-		
-			if (hit.collider != null && Mathf.Abs(hit.normal.x) > 0.1f) {
-				Rigidbody2D body = GetComponent<Rigidbody2D>();
-				// Apply the opposite force against the slope force 
-				// You will need to provide your own slopeFriction to stabalize movement
-				body.velocity = new Vector2(body.velocity.x - (hit.normal.x * 0.2f), body.velocity.y);
-
-				//Move Player up or down to compensate for the slope below them
-				Vector3 pos = transform.position;
-				pos.y += -hit.normal.x * Mathf.Abs(body.velocity.x) * Time.deltaTime * (body.velocity.x - hit.normal.x > 0 ? 1 : -1);
-				transform.position = pos;
+			
+			// Check direction and flip sprite
+			if (moveH > 0 && !tankFacingRight)
+			{
+				Flip();
 			}
+			else if (moveH < 0 && tankFacingRight)
+			{
+				Flip();
+			}
+
 		}
 	}
 	
+	void Flip()
+	{
+		Vector3 temp = this.transform.localScale;
+		temp.x *= -1;
+		this.transform.localScale = temp;
+		tankFacingRight = !tankFacingRight;
+	}
+	
+//	// @NOTE Must be called from FixedUpdate() to work properly
+//	void NormalizeSlope () {
+//		// Attempt vertical normalization
+//
+//		bool grounded = true;
+//		
+//		if (grounded) {
+//			RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up, 1f, defineGround);
+//		
+//			if (hit.collider != null && Mathf.Abs(hit.normal.x) > 0.1f) {
+//				Rigidbody2D body = GetComponent<Rigidbody2D>();
+//				// Apply the opposite force against the slope force 
+//				// You will need to provide your own slopeFriction to stabalize movement
+//				body.velocity = new Vector2(body.velocity.x - (hit.normal.x * 0.2f), body.velocity.y);
+//
+//				//Move Player up or down to compensate for the slope below them
+//				Vector3 pos = transform.position;
+//				pos.y += -hit.normal.x * Mathf.Abs(body.velocity.x) * Time.deltaTime * (body.velocity.x - hit.normal.x > 0 ? 1 : -1);
+//				transform.position = pos;
+//			}
+//		}
+//	}
+//	
 	
 	void OnCollisionEnter2D(Collision2D col)
 	{
 		
-		if(col.gameObject.name == "Fuel")
+		if(col.gameObject.CompareTag("Fuel"))
 		{
 			// Refuel tank
-			Debug.Log("Tank1 refueled by 20");
 			Destroy(col.gameObject);
 
 			health += 20;
+			
+			SpawnTooltip(col, "Refuel, +20");
+			
+			/* Call game manager to update UI panel */
+			gameManager.SendMessage("UpdateHealth", this.gameObject);
 		}		
 		
 //		Check if hit by enemy tank
 		if (col.gameObject.CompareTag("Bomb"))
 		{
 
-            SpawnTooltip();
-
 			if (!isDead())
 			{
 				health -= damage;
+				
+				SpawnTooltip(col, "Damage, -20");
 
-				checkHealth();
+				checkHealth();						
 				
 				/* Call game manager to update UI panel */
 				gameManager.SendMessage("UpdateHealth", this.gameObject);
 			}
-			
-
 		}
 	}
 
-    private void SpawnTooltip()
+    private void SpawnTooltip(Collision2D col, String msg)
     {
         var tooltipText = Instantiate(tooltipTextPrefab,transform.position, Quaternion.identity, canvas) as GameObject;
 
-      //  tooltipText.transform.position = Camera.main.WorldToScreenPoint(transform.position);
+	    tooltipText.transform.position = col.transform.position;
       
         var text = tooltipText.GetComponent<Text>();
-        text.text = (-damage).ToString();
+        text.text = msg;
 
-        Destroy(tooltipText, 4f);
+        Destroy(tooltipText, 3f);
     }
 	
 

@@ -23,7 +23,7 @@ public class BombController : MonoBehaviour {
     {
         SpawnExplosion();
 
-        if (col.gameObject.name == "Box")
+        if (col.gameObject.CompareTag("Box"))
         {
             Debug.Log("Hit box");
             Destroy(gameObject);

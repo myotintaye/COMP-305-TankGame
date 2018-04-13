@@ -118,7 +118,7 @@ public class LevelThreeManager : MonoBehaviour {
 		tankB1.SendMessage("Deactivate");
 		tankB2.SendMessage("Deactivate");
 
-		timer = 2;
+		timer = 10;
 
 		txtTimeLeft.text = "Switching Player";
 			

@@ -17,11 +17,13 @@ public class ButtonManager : MonoBehaviour {
 
     public void Btn_backHome(string newHome)
     {
+        Debug.Log("Enter Btn_backHome");
         SceneManager.LoadScene(newHome);
     }
 
     public void Btn_level1(string newTankSelection)
     {
+        Debug.Log("Enter Btn_level1");
         SceneManager.LoadScene(newTankSelection);
     }
 

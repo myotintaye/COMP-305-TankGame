@@ -8,6 +8,8 @@ TagManager:
   - TeamB
   - Bomb
   - Canvas
+  - Fuel
+  - Box
   layers:
   - Default
   - TransparentFX

@@ -25,8 +25,9 @@ public class LevelOneManager : MonoBehaviour {
 		totalRound = 1;
 		
 		currentPlayer = 0; 
-		
-		tankA1.SendMessage("Activate");
+//		
+//		tankA1.SendMessage("Deactivate");	
+//		tankA1.SendMessage("Activate");
 			
 		float zCamera = mainCamera.transform.position.z;
 		mainCamera.transform.position = new Vector3(tankA1.transform.position.x, tankA1.transform.position.y, zCamera);

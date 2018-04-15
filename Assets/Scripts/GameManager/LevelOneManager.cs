@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class LevelOneManager : MonoBehaviour {
 
 
-	public float timer = 30f;
+	public float timer = 30000f;
 	
 	public int totalRound;
 	public int currentPlayer;

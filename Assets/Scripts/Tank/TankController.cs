@@ -8,6 +8,7 @@ using UnityEngineInternal;
 public class TankController : MonoBehaviour {
 
 	public float maxSpeed = 1f;
+	public float rotationSpeed = 10f;
 
     public Transform canvas;
     public GameObject tooltipTextPrefab;
@@ -17,51 +18,163 @@ public class TankController : MonoBehaviour {
 	private Animator animator;
 
 	private float moveH;
-	private float initialSpeed;
+	private float initialSpeed = 10f;
 
-	private bool isFired = false;
+	private bool isFireCooledDown = true;
 	
 //	public Transform groundCheck;
 	public LayerMask defineGround;
 
 	public GameObject bombPrefab;
 	public Transform cannon;
+	public Transform bombPlaceholder;
 
 	public bool playerActivated = false;
-	public bool tankFacingRight = true;
+	public bool tankFacingRight;
 
 	public GameObject gameManager;
 
 	private int health = 40;
 	private int maxHealth = 60;
-	private int bombChance = 0;
+	public int bombChance = 1
+		;
     private int damage = 20;
 	private bool dealth = false;
 
 	public Sprite deadImage;
 	public Slider healthBar;
+
+	private Vector3 cannonRotation;
+	
  
 	
 	// Use this for initialization
 	void Start ()
 	{
+
+		
+	}
+
+	private void Awake()
+	{
 		rBody = GetComponent<Rigidbody2D>();
-//		sRend = GetComponent<SpriteRenderer>();
 		animator = GetComponent<Animator>();
 		
 		// Lower the center of mass to avoid rotation issues
 		rBody.centerOfMass = new Vector3(0, -1, 0);
+
+//		if (!tankFacingRight)
+//		{
+//			Debug.Log("Flip() in Initialization" + this.ToString());
+//			Flip();
+//		}		
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 
-		if (Input.GetKey(KeyCode.Space) && isFired == false && playerActivated == true)
+		if (Input.GetKey(KeyCode.Space) && bombChance > 0 && playerActivated && isFireCooledDown)
 		{
-			initialSpeed  = Input.GetAxis("Jump") * 5;
+//			initialSpeed  = Input.GetAxis("Jump") * 5;
 			
 			Fire(initialSpeed);
-			isFired = true;
+		}
+
+		/* Rotate cannon */
+		if (Input.GetKey(KeyCode.UpArrow) && playerActivated)
+		{
+			
+			cannonRotation = cannon.localEulerAngles;
+				
+//			Debug.Log("cannon = " + cannon.localEulerAngles.z.ToString());
+			
+			if (cannon.localEulerAngles.z < 45f)
+			{
+				cannonRotation.z += rotationSpeed * Time.deltaTime;
+			}
+			else
+			{
+				cannonRotation.z = 45f;	
+			}			
+
+//			if (tankFacingRight)
+//			{
+//				if (cannon.localEulerAngles.z < 45f)
+//				{
+//					cannonRotation.z += rotationSpeed * Time.deltaTime;
+//				}
+//				else
+//				{
+//					cannonRotation.z = 45f;	
+//				}			
+//			}
+//			else
+//			{
+//				if (cannon.localEulerAngles.z > -45f)
+//				{
+//					cannonRotation.z -= rotationSpeed * Time.deltaTime;
+//				}
+//				else
+//				{
+//					cannonRotation.z = -45f;	
+//				}					
+//			}
+	
+			cannon.localEulerAngles = cannonRotation;
+			/* Adjust bomb placeholder pivot rotation */
+			cannonRotation.z *= -1;
+			bombPlaceholder.localEulerAngles = cannonRotation;
+
+		}
+		
+		if (Input.GetKey(KeyCode.DownArrow) && playerActivated)
+		{
+			
+			cannonRotation = cannon.localEulerAngles;
+			
+//			Debug.Log("cannon = " + cannon.localEulerAngles.z.ToString());
+			
+			if (cannon.localEulerAngles.z > 5f)
+			{
+				cannonRotation.z -= rotationSpeed * Time.deltaTime;
+			}
+			else
+			{
+				cannonRotation.z = 5f;	
+			}
+
+//			if (tankFacingRight)
+//			{
+//				if (cannon.localEulerAngles.z > 5f)
+//				{
+//					cannonRotation.z -= rotationSpeed * Time.deltaTime;
+//				}
+//				else
+//				{
+//					cannonRotation.z = 5f;	
+//				}
+//			}
+//			else
+//			{
+//				if (cannon.localEulerAngles.z < -5f)
+//				{
+//					cannonRotation.z += rotationSpeed * Time.deltaTime;
+//				}
+//				else
+//				{
+//					cannonRotation.z = -5f;	
+//				}			
+//			}
+
+
+			cannon.localEulerAngles = cannonRotation;
+			
+			/* Adjust bomb placeholder pivot rotation */
+			cannonRotation.z *= -1;
+			bombPlaceholder.localEulerAngles = cannonRotation;
+			
+//			Debug.Log("bombPlaceholder = " + bombPlaceholder.transform.localEulerAngles.z.ToString());
+			
 		}
 	}
 	
@@ -200,11 +313,31 @@ public class TankController : MonoBehaviour {
 		GameObject obj = GameObject.Instantiate(bombPrefab) as GameObject;
 		BombController bomb = obj.GetComponent<BombController>();
 		
-		obj.transform.position = cannon.position;
+		obj.transform.position = bombPlaceholder.position;
+
+		Vector3 bombPlaceholderAngle = bombPlaceholder.localEulerAngles;
+		bombPlaceholderAngle.z = 360 - bombPlaceholderAngle.z;
+		
+		obj.transform.localEulerAngles = bombPlaceholderAngle;
+
+//		Debug.Log("bomb angle = " + obj.transform.localEulerAngles.z.ToString());
+		
+		
+		/* Rotation range (5, 45) degrees */
+		float angle = Mathf.Deg2Rad * (cannon.localEulerAngles.z);
+		float xSpeed = initialSpeed * Mathf.Cos(angle);
+		float ySpeed = initialSpeed * Mathf.Sin(angle);
+		
+		
+//		Debug.Log("------ Firing ------" + bombChance.ToString());
+//		Debug.Log("angle = " + angle.ToString());
+//		Debug.Log("xSpeed = " + xSpeed.ToString());
+//		Debug.Log("ySpeed = " + ySpeed.ToString());
 
 		if (tankFacingRight)
 		{	
-			obj.GetComponent<Rigidbody2D>().velocity = new Vector2(1f, 1f) * initialSpeed;
+			
+			obj.GetComponent<Rigidbody2D>().velocity = new Vector2(xSpeed, ySpeed);
 		}
 		else
 		{
@@ -212,17 +345,26 @@ public class TankController : MonoBehaviour {
 			Vector2 newScale = obj.transform.localScale;
 			newScale.x *= -1;
 			obj.transform.localScale = newScale;
-			
-			obj.GetComponent<Rigidbody2D>().velocity = new Vector2(-1f, 1f) * initialSpeed;
+
+			xSpeed *= -1;
+			obj.GetComponent<Rigidbody2D>().velocity = new Vector2(xSpeed, ySpeed);
 		}
 		
 		bombChance -= 1;
+		isFireCooledDown = false;
 		
 		/* Call game manager to update UI panel */
 		gameManager.SendMessage("UpdateBombChance", this.gameObject);
+		
+		/* Start Cool Down */
+		Invoke("FireCoolDown", 1);
 	}
-	
 
+
+	void FireCoolDown()
+	{
+		isFireCooledDown = true;
+	}
 
 	void checkHealth()
 	{
@@ -245,30 +387,17 @@ public class TankController : MonoBehaviour {
 			
 			/* Hide health bar */
 			healthBar.gameObject.SetActive(false);
+			
+			/* Hide cannon */
+			cannon.gameObject.SetActive(false);
 
 		}
 	}
-	
-	public int GetHealth()
-	{
-		return health;
-	}
 
-	public int GetBombChance()
-	{
-		return bombChance;
-	}
-
-	public bool isDead()
-	{
-		return dealth;
-	}
-	
 	
 	void Activate()
 	{
 		playerActivated = true;
-		isFired = false;
 		bombChance = 1;
 		rBody.constraints = RigidbodyConstraints2D.None;
 
@@ -283,6 +412,26 @@ public class TankController : MonoBehaviour {
 
 	void SetTankDirectionToLeft()
 	{
+		Debug.Log("SetTankDirectionToLeft()" + this.ToString());
+		Flip();
 		tankFacingRight = false;
 	}
+	
+	
+		
+	public int GetHealth()
+	{
+		return health;
+	}
+
+	public int GetBombChance()
+	{
+		return bombChance;
+	}
+
+	public bool isDead()
+	{
+		return dealth;
+	}
+
 }

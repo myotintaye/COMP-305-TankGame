@@ -90,6 +90,22 @@ public class LevelThreeManager : MonoBehaviour {
 		yield return new WaitForSeconds(3);
 		yield return null;
 	}
+	
+	void Transition()
+	{
+		isInTransition = true;
+		
+		tankA1.SendMessage("Deactivate");
+		tankA2.SendMessage("Deactivate");
+		tankB1.SendMessage("Deactivate");
+		tankB2.SendMessage("Deactivate");
+
+		timer = 10;
+
+		txtTimeLeft.text = "Switching Player";
+			
+		Invoke("SwitchPlayer", 2);
+	}
 
 	bool checkWinning()
 	{
@@ -107,22 +123,6 @@ public class LevelThreeManager : MonoBehaviour {
 		{
 			return false;
 		}
-	}
-
-	void Transition()
-	{
-		isInTransition = true;
-		
-		tankA1.SendMessage("Deactivate");
-		tankA2.SendMessage("Deactivate");
-		tankB1.SendMessage("Deactivate");
-		tankB2.SendMessage("Deactivate");
-
-		timer = 10;
-
-		txtTimeLeft.text = "Switching Player";
-			
-		Invoke("SwitchPlayer", 2);
 	}
 	
 	//    Swtich player, tankA1 = 0, tankB1 = 1, tankA2 = 2, tankB2 = 3

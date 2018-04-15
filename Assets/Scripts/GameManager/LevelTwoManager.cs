@@ -30,6 +30,8 @@ public class LevelTwoManager : MonoBehaviour
 	
 	public Text txtWinningMessage;	
 	public GameObject gameOverPanel;
+	
+	private bool isInTransition = false;
 
 	// Use this for initialization
 	void Start ()
@@ -55,14 +57,16 @@ public class LevelTwoManager : MonoBehaviour
 	void Update ()
 	{
 		timer -= Time.deltaTime;
-
+		
 		if (timer <= 0)
 		{
-			SwitchPlayer();
-			timer = 10;
+			Transition();
 		}
-		
-		txtTimeLeft.text = "Time: " + Mathf.FloorToInt(timer).ToString();
+
+		if (!isInTransition)
+		{
+			txtTimeLeft.text = "Time: " + Mathf.FloorToInt(timer).ToString();			
+		}
 		
 		if (checkWinning())
 		{
@@ -71,25 +75,24 @@ public class LevelTwoManager : MonoBehaviour
 		};
 	}
 	
-	
-	bool checkWinning()
-	{
-		if (tank1.GetComponent<TankController>().isDead())
-		{
-			txtWinningMessage.text = "Tank B wins the game!";
-			return true;
-		}
-		else if (tank2.GetComponent<TankController>().isDead())
-		{
-			txtWinningMessage.text = "Tank A wins the game!";
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+	IEnumerator WaitForSwitch(){
+		yield return new WaitForSeconds(3);
+		yield return null;
 	}
 	
+	void Transition()
+	{
+		isInTransition = true;
+		
+		tank1.SendMessage("Deactivate");
+		tank2.SendMessage("Deactivate");
+
+		timer = 10;
+
+		txtTimeLeft.text = "Switching Player";
+			
+		Invoke("SwitchPlayer", 2);
+	}
 	
 //    Swtich player, tank1 = 0, tank2 = 1
 	void SwitchPlayer()
@@ -113,7 +116,7 @@ public class LevelTwoManager : MonoBehaviour
 			tank2.SendMessage("Activate");		
 			
 			float zCamera = mainCamera.transform.position.z;
-			mainCamera.transform.position = new Vector3(tank2.transform.position.x, tank2.transform.position.y, zCamera);
+			mainCamera.transform.position = new Vector3(tank2.transform.position.x, tank2.transform.position.y + 0.5f, zCamera);
 			mainCamera.SendMessage("SetFollowedTank", tank2);
 
 		}
@@ -121,8 +124,30 @@ public class LevelTwoManager : MonoBehaviour
 		/* Reset current player */
 		currentPlayer = (currentPlayer + 1) % 2;
 		
+		timer = 10;
+		
+		isInTransition = false;
+		
 		UpdateInfoPanel();
 
+	}
+	
+	bool checkWinning()
+	{
+		if (tank1.GetComponent<TankController>().isDead())
+		{
+			txtWinningMessage.text = "Tank B wins the game!";
+			return true;
+		}
+		else if (tank2.GetComponent<TankController>().isDead())
+		{
+			txtWinningMessage.text = "Tank A wins the game!";
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 	
 	void UpdateInfoPanel()

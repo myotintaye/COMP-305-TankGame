@@ -33,11 +33,13 @@ public class TankController : MonoBehaviour {
 	public GameObject gameManager;
 
 	private int health = 40;
+	private int maxHealth = 60;
 	private int bombChance = 0;
     private int damage = 20;
 	private bool dealth = false;
 
 	public Sprite deadImage;
+	public Slider healthBar;
  
 	
 	// Use this for initialization
@@ -101,6 +103,13 @@ public class TankController : MonoBehaviour {
 		Vector3 temp = this.transform.localScale;
 		temp.x *= -1;
 		this.transform.localScale = temp;
+
+		/* Don't flip the health bar */
+		Vector3 tempHealthBar = this.transform.Find("Canvas").transform.localScale;
+		Transform healthBarTransform = this.transform.Find("Canvas").transform;
+		tempHealthBar.x *= -1;
+		healthBarTransform.localScale = tempHealthBar;
+		
 		tankFacingRight = !tankFacingRight;
 	}
 	
@@ -136,7 +145,16 @@ public class TankController : MonoBehaviour {
 			// Refuel tank
 			Destroy(col.gameObject);
 
-			health += 20;
+			if (health + 20 < maxHealth)
+			{
+				health += 20;			
+			}
+			else
+			{
+				health = maxHealth;
+			}
+
+			healthBar.value = health;
 			
 			SpawnTooltip(col, "Refuel, +20");
 			
@@ -151,8 +169,9 @@ public class TankController : MonoBehaviour {
 			if (!isDead())
 			{
 				health -= damage;
+				healthBar.value -= damage;
 				
-				SpawnTooltip(col, "Damage, -20");
+				SpawnTooltip(col, "Damage, -" + damage.ToString());
 
 				checkHealth();						
 				
@@ -213,12 +232,20 @@ public class TankController : MonoBehaviour {
 			dealth = true;
 
 			/* Replace sprite renderer */
-			gameObject.GetComponent<SpriteRenderer>().sprite = deadImage; 
+			gameObject.GetComponent<SpriteRenderer>().sprite = deadImage;
+			
+			/* Adjust position because of different sprite image */
+			Vector3 tankPosition = gameObject.transform.position;
+			tankPosition.y -= 0.3f;
+			gameObject.transform.position = tankPosition;
 			
 			/* Call game manager to update UI panel */
 			gameManager.SendMessage("UpdateBombChance", this.gameObject);
 			gameManager.SendMessage("UpdateDealthInfo", this.gameObject);
 			
+			/* Hide health bar */
+			healthBar.gameObject.SetActive(false);
+
 		}
 	}
 	

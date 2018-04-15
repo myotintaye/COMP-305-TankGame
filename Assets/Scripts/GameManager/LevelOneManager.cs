@@ -48,5 +48,21 @@ public class LevelOneManager : MonoBehaviour {
 			gameOverPanel.SetActive(true);
 		}
 	}
+	
+	void UpdateHealth(GameObject tank)
+	{
+		String hitTank = tank.name;
+
+//		Debug.Log("Hit tank = " + hitTank);
+//
+//		if (hitTank == "Tank1")
+//		{
+//			txtTankAHealth.text = "Health: " + tank.GetComponent<TankController>().GetHealth().ToString();
+//		}
+//		else
+//		{
+//			txtTankBHealth.text = "Health: " + tank.GetComponent<TankController>().GetHealth().ToString();
+//		}
+	}
 
 }

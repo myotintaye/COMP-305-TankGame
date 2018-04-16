@@ -49,7 +49,7 @@ public class LevelThreeManager : MonoBehaviour {
 		currentPlayer = 0; 
 			
 		float zCamera = mainCamera.transform.position.z;
-		mainCamera.transform.position = new Vector3(tankA1.transform.position.x, tankA1.transform.position.y, zCamera);
+		mainCamera.transform.position = new Vector3(tankA1.transform.position.x, tankA1.transform.position.y + 1, zCamera);
 		
 		mainCamera.SendMessage("SetFollowedTank", tankA1);
 
@@ -145,7 +145,7 @@ public class LevelThreeManager : MonoBehaviour {
 					timer = 10;
 
 					float zCamera = mainCamera.transform.position.z;
-					mainCamera.transform.position = new Vector3(tankA1.transform.position.x, tankA1.transform.position.y, zCamera);
+					mainCamera.transform.position = new Vector3(tankA1.transform.position.x, tankA1.transform.position.y + 1, zCamera);
 					mainCamera.SendMessage("SetFollowedTank", tankA1);
 				}
 				else
@@ -165,7 +165,7 @@ public class LevelThreeManager : MonoBehaviour {
 					timer = 10;
 					
 					float zCamera = mainCamera.transform.position.z;
-					mainCamera.transform.position = new Vector3(tankB1.transform.position.x, tankB1.transform.position.y, zCamera);
+					mainCamera.transform.position = new Vector3(tankB1.transform.position.x, tankB1.transform.position.y + 1, zCamera);
 					mainCamera.SendMessage("SetFollowedTank", tankB1);
 				}				
 				else
@@ -183,7 +183,7 @@ public class LevelThreeManager : MonoBehaviour {
 					tankA2.SendMessage("Activate");
 					
 					float zCamera = mainCamera.transform.position.z;
-					mainCamera.transform.position = new Vector3(tankA2.transform.position.x, tankA2.transform.position.y, zCamera);
+					mainCamera.transform.position = new Vector3(tankA2.transform.position.x, tankA2.transform.position.y + 1, zCamera);
 					mainCamera.SendMessage("SetFollowedTank", tankA2);
 				}
 				else
@@ -201,7 +201,7 @@ public class LevelThreeManager : MonoBehaviour {
 					tankB2.SendMessage("Activate");
 					
 					float zCamera = mainCamera.transform.position.z;
-					mainCamera.transform.position = new Vector3(tankB2.transform.position.x, tankB2.transform.position.y, zCamera);
+					mainCamera.transform.position = new Vector3(tankB2.transform.position.x, tankB2.transform.position.y + 1, zCamera);
 					mainCamera.SendMessage("SetFollowedTank", tankB2);
 				}				
 				else
@@ -225,54 +225,54 @@ public class LevelThreeManager : MonoBehaviour {
 		
 		if (!tankA1.GetComponent<TankController>().isDead())
 		{
-			txtTankA1.text = "Tank A1 standby";
+			txtTankA1.text = "standby";
 		}				
 		else
 		{
-			txtTankA1.text = "Tank A1 is dead";
+			txtTankA1.text = "dead";
 		}
 		
 		if (!tankB1.GetComponent<TankController>().isDead())
 		{
-			txtTankB1.text = "Tank B1 standby";
+			txtTankB1.text = "standby";
 		}				
 		else
 		{
-			txtTankB1.text = "Tank B1 is dead";
+			txtTankB1.text = "dead";
 		}
 		
 		
 		if (!tankA2.GetComponent<TankController>().isDead())
 		{
-			txtTankA2.text = "Tank A2 standby";
+			txtTankA2.text = "standby";
 		}				
 		else
 		{
-			txtTankA2.text = "Tank A2 is dead";
+			txtTankA2.text = "dead";
 		}
 		
 		
 		if (!tankB2.GetComponent<TankController>().isDead())
 		{
-			txtTankB2.text = "Tank B2 standby";
+			txtTankB2.text = "standby";
 		}				
 		else
 		{
-			txtTankB2.text = "Tank B2 is dead";
+			txtTankB2.text = "dead";
 		}
 		
-		txtTankB2.text = "Tank B2 standby";
+//		txtTankB2.text = "Tank B2 standby";
 		
 		switch (currentPlayer)
 		{
 			case 0:		
 				if (!tankA1.GetComponent<TankController>().isDead())
 				{
-					txtTankA1.text = "Tank A1 is playing";
+					txtTankA1.text = "on play";
 				}				
 				else
 				{
-					txtTankA1.text = "Tank A1 is dead";
+					txtTankA1.text = "dead";
 				}
 				
 				break;
@@ -280,33 +280,33 @@ public class LevelThreeManager : MonoBehaviour {
 			case 1:
 				if (!tankB1.GetComponent<TankController>().isDead())
 				{
-					txtTankB1.text = "Tank B1 is playing";
+					txtTankB1.text = "on play";
 				}				
 				else
 				{
-					txtTankB1.text = "Tank B1 is dead";
+					txtTankB1.text = "dead";
 				}
 				break;
 			
 			case 2:
 				if (!tankA2.GetComponent<TankController>().isDead())
 				{
-					txtTankA2.text = "Tank A2 is playing";
+					txtTankA2.text = "on play";
 				}				
 				else
 				{
-					txtTankA2.text = "Tank A2 is dead";
+					txtTankA2.text = "dead";
 				}
 				break;
 			
 			case 3:
 				if (!tankB2.GetComponent<TankController>().isDead())
 				{
-					txtTankB2.text = "Tank B2 is playing";
+					txtTankB2.text = "on play";
 				}				
 				else
 				{
-					txtTankB2.text = "Tank B2 is dead";
+					txtTankB2.text = "dead";
 				}
 				break;
 			
@@ -382,19 +382,19 @@ public class LevelThreeManager : MonoBehaviour {
 
 		if (deadTank == "TankA1")
 		{
-			txtTankA1Health.text = "Tank A1 is dead";
+			txtTankA1Health.text = "dead";
 		}
 		else if (deadTank == "TankA2")
 		{
-			txtTankA2Health.text = "Tank A2 is dead";
+			txtTankA2Health.text = "dead";
 		}
 		else if (deadTank == "TankB1")
 		{
-			txtTankB1Health.text = "Tank B1 is dead";
+			txtTankB1Health.text = "dead";
 		}
 		else if (deadTank == "TankB2")
 		{
-			txtTankB2Health.text = "Tank B2 is dead";
+			txtTankB2Health.text = "dead";
 		}		
 	}
 	

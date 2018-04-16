@@ -30,7 +30,7 @@ public class LevelTwoManager : MonoBehaviour
 	
 	public Text txtWinningMessage;	
 	public GameObject gameOverPanel;
-	
+
 	private bool isInTransition = false;
 
 	// Use this for initialization
@@ -156,19 +156,19 @@ public class LevelTwoManager : MonoBehaviour
 
 		if (currentPlayer == 0)
 		{
-			txtTankA.text = "Tank A is playing";
-			txtTankB.text = "Tank B is waiting";
+			txtTankA.text = "on play";
+			txtTankB.text = "standby";
 		}
 		else
 		{
-			txtTankA.text = "Tank B is waiting";
-			txtTankB.text = "Tank B is playing";
+			txtTankA.text = "standby";
+			txtTankB.text = "on play";
 		}
 		
-		txtTankAHealth.text = "Health: " + tank1.GetComponent<TankController>().GetHealth().ToString();
-		txtTankBHealth.text = "Health: " + tank2.GetComponent<TankController>().GetHealth().ToString();
- 		txtTankABomb.text = "Bomb: " + tank1.GetComponent<TankController>().GetBombChance().ToString();
-		txtTankBBomb.text = "Bomb: " + tank2.GetComponent<TankController>().GetBombChance().ToString();
+		txtTankAHealth.text = tank1.GetComponent<TankController>().GetHealth().ToString();
+		txtTankBHealth.text = tank2.GetComponent<TankController>().GetHealth().ToString();
+ 		txtTankABomb.text = tank1.GetComponent<TankController>().GetBombChance().ToString();
+		txtTankBBomb.text = tank2.GetComponent<TankController>().GetBombChance().ToString();
 		
 	}
 
@@ -180,11 +180,11 @@ public class LevelTwoManager : MonoBehaviour
 
 		if (hitTank == "Tank1")
 		{
-			txtTankAHealth.text = "Health: " + tank.GetComponent<TankController>().GetHealth().ToString();
+			txtTankAHealth.text = tank.GetComponent<TankController>().GetHealth().ToString();
 		}
 		else
 		{
-			txtTankBHealth.text = "Health: " + tank.GetComponent<TankController>().GetHealth().ToString();
+			txtTankBHealth.text = tank.GetComponent<TankController>().GetHealth().ToString();
 		}
 	}
 
@@ -196,11 +196,11 @@ public class LevelTwoManager : MonoBehaviour
 
 		if (firedByTank == "Tank1")
 		{
-			txtTankABomb.text = "Bomb: " + tank.GetComponent<TankController>().GetBombChance().ToString();
+			txtTankABomb.text = tank.GetComponent<TankController>().GetBombChance().ToString();
 		}
 		else
 		{
-			txtTankBBomb.text = "Bomb: " + tank.GetComponent<TankController>().GetBombChance().ToString();
+			txtTankBBomb.text = tank.GetComponent<TankController>().GetBombChance().ToString();
 		}
 
 	}
@@ -211,11 +211,11 @@ public class LevelTwoManager : MonoBehaviour
 
 		if (deadTank == "Tank1")
 		{
-			txtTankAHealth.text = "Tank A is dead";
+			txtTankAHealth.text = "dead";
 		}
 		else if (deadTank == "Tank2")
 		{
-			txtTankBHealth.text = "Tank B is dead";
+			txtTankBHealth.text = "dead";
 		}
 	
 	}

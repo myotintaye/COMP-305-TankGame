@@ -43,10 +43,14 @@ public class TankController : MonoBehaviour {
 
 	public Sprite deadImage;
 	public Slider healthBar;
+	
+	public Image overlay;
 
 	private Vector3 cannonRotation;
+
+	private AudioSource _audioSource;
 	
- 
+ 	
 	
 	// Use this for initialization
 	void Start ()
@@ -59,6 +63,9 @@ public class TankController : MonoBehaviour {
 	{
 		rBody = GetComponent<Rigidbody2D>();
 		animator = GetComponent<Animator>();
+		_audioSource = GetComponent<AudioSource>();
+
+		_audioSource.enabled = false;
 		
 		// Lower the center of mass to avoid rotation issues
 		rBody.centerOfMass = new Vector3(0, -1, 0);
@@ -255,6 +262,9 @@ public class TankController : MonoBehaviour {
 		
 		if(col.gameObject.CompareTag("Fuel"))
 		{
+			_audioSource.enabled = true;
+			_audioSource.Play();
+			
 			// Refuel tank
 			Destroy(col.gameObject);
 
@@ -401,6 +411,8 @@ public class TankController : MonoBehaviour {
 		bombChance = 1;
 		rBody.constraints = RigidbodyConstraints2D.None;
 
+		overlay.enabled = false;
+
 	}
 
 	void Deactivate()
@@ -408,6 +420,8 @@ public class TankController : MonoBehaviour {
 		playerActivated = false;
 		bombChance = 0;
 		rBody.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+		
+		overlay.enabled = true;
 	}
 
 	void SetTankDirectionToLeft()

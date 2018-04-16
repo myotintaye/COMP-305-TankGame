@@ -315,18 +315,18 @@ public class LevelThreeManager : MonoBehaviour {
 		}
 		
 		/* Update health info */
-		txtTankA1Health.text = "Health: " + tankA1.GetComponent<TankController>().GetHealth().ToString();
-		txtTankA2Health.text = "Health: " + tankA2.GetComponent<TankController>().GetHealth().ToString();
+		txtTankA1Health.text = tankA1.GetComponent<TankController>().GetHealth().ToString();
+		txtTankA2Health.text = tankA2.GetComponent<TankController>().GetHealth().ToString();
 		
-		txtTankB1Health.text = "Health: " + tankB1.GetComponent<TankController>().GetHealth().ToString();
-		txtTankB2Health.text = "Health: " + tankB2.GetComponent<TankController>().GetHealth().ToString();
+		txtTankB1Health.text = tankB1.GetComponent<TankController>().GetHealth().ToString();
+		txtTankB2Health.text = tankB2.GetComponent<TankController>().GetHealth().ToString();
 
 		/* Update bomb info */
-		txtTankA1Bomb.text = "Bomb: " + tankA1.GetComponent<TankController>().GetBombChance().ToString();
-		txtTankA2Bomb.text = "Bomb: " + tankA2.GetComponent<TankController>().GetBombChance().ToString();		
+		txtTankA1Bomb.text = tankA1.GetComponent<TankController>().GetBombChance().ToString();
+		txtTankA2Bomb.text = tankA2.GetComponent<TankController>().GetBombChance().ToString();		
 		
-		txtTankB1Bomb.text = "Bomb: " + tankB1.GetComponent<TankController>().GetBombChance().ToString();
-		txtTankB2Bomb.text = "Bomb: " + tankB2.GetComponent<TankController>().GetBombChance().ToString();		
+		txtTankB1Bomb.text = tankB1.GetComponent<TankController>().GetBombChance().ToString();
+		txtTankB2Bomb.text = tankB2.GetComponent<TankController>().GetBombChance().ToString();		
 	}
 	
 	void UpdateHealth(GameObject tank)
@@ -337,19 +337,19 @@ public class LevelThreeManager : MonoBehaviour {
 
 		if (hitTank == "TankA1")
 		{
-			txtTankA1Health.text = "Health: " + tank.GetComponent<TankController>().GetHealth().ToString();
+			txtTankA1Health.text = tank.GetComponent<TankController>().GetHealth().ToString();
 		}
 		else if (hitTank == "TankA2")
 		{
-			txtTankA2Health.text = "Health: " + tank.GetComponent<TankController>().GetHealth().ToString();
+			txtTankA2Health.text = tank.GetComponent<TankController>().GetHealth().ToString();
 		}
 		else if (hitTank == "TankB1")
 		{
-			txtTankB1Health.text = "Health: " + tank.GetComponent<TankController>().GetHealth().ToString();
+			txtTankB1Health.text = tank.GetComponent<TankController>().GetHealth().ToString();
 		}
 		else if (hitTank == "TankB2")
 		{
-			txtTankB2Health.text = "Health: " + tank.GetComponent<TankController>().GetHealth().ToString();
+			txtTankB2Health.text = tank.GetComponent<TankController>().GetHealth().ToString();
 		}
 	}
 
@@ -359,19 +359,19 @@ public class LevelThreeManager : MonoBehaviour {
 
 		if (firedByTank == "TankA1")
 		{
-			txtTankA1Bomb.text = "Bomb: " + tank.GetComponent<TankController>().GetBombChance().ToString();
+			txtTankA1Bomb.text = tank.GetComponent<TankController>().GetBombChance().ToString();
 		}
 		else if (firedByTank == "TankA2")
 		{
-			txtTankA2Bomb.text = "Bomb: " + tank.GetComponent<TankController>().GetBombChance().ToString();
+			txtTankA2Bomb.text = tank.GetComponent<TankController>().GetBombChance().ToString();
 		}
 		else if (firedByTank == "TankB1")
 		{
-			txtTankB1Bomb.text = "Bomb: " + tank.GetComponent<TankController>().GetBombChance().ToString();
+			txtTankB1Bomb.text = tank.GetComponent<TankController>().GetBombChance().ToString();
 		}
 		else if (firedByTank == "TankB2")
 		{
-			txtTankB2Bomb.text = "Bomb: " + tank.GetComponent<TankController>().GetBombChance().ToString();
+			txtTankB2Bomb.text = tank.GetComponent<TankController>().GetBombChance().ToString();
 		}
 
 	}

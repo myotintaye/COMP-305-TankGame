@@ -7,11 +7,21 @@ using UnityEngine;
 public class BombController : MonoBehaviour {
 
     public GameObject explosionPrefab;
-	private Rigidbody2D rBody;
+	private Renderer _renderer;
+	private PolygonCollider2D _collider2D;
+	
+	private AudioSource asShoot;
+	public AudioClip acMapExplosion;
+	public AudioClip acBoxExplosion;
 
 	// Use this for initialization
-	void Start () {
-		rBody = GetComponent<Rigidbody2D>();
+	void Start ()
+	{
+		_renderer = GetComponent<Renderer>();
+		_collider2D = GetComponent<PolygonCollider2D>();
+		
+		asShoot = GetComponent<AudioSource>();
+		asShoot.Play();
 	}
 	
 	// Update is called once per frame
@@ -26,19 +36,41 @@ public class BombController : MonoBehaviour {
         if (col.gameObject.CompareTag("Box"))
         {
             Debug.Log("Hit box");
-            Destroy(gameObject);
+	        
+	        _renderer.enabled = false;
+	        _collider2D.enabled = false;
+
+	        asShoot.clip = acBoxExplosion;
+	        asShoot.Play();
+
+	        
+	        Destroy(gameObject, asShoot.clip.length);
             Destroy(col.gameObject);
+	        
         }
         else if (col.gameObject.name == "Map")
         {
 	        Debug.Log("Hit map");
-            Destroy(gameObject);
+	        
+	        _renderer.enabled = false;
+	        _collider2D.enabled = false;
+	        
+	        asShoot.clip = acMapExplosion;
+	        asShoot.Play();
+	        
+	        Destroy(gameObject, asShoot.clip.length);
         }
 
         /* Avoid hit to be counted multiple times */
         if (col.gameObject.CompareTag("Player"))
         {
-            Destroy(gameObject);
+	        _renderer.enabled = false;
+	        _collider2D.enabled = false;
+	        
+	        asShoot.clip = acBoxExplosion;
+	        asShoot.Play();
+	        
+	        Destroy(gameObject, asShoot.clip.length);
         }
 
     }

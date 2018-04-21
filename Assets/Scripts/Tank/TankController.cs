@@ -320,10 +320,10 @@ public class TankController : MonoBehaviour {
     void Fire(float speed)
 	{
 		
-		GameObject obj = GameObject.Instantiate(bombPrefab) as GameObject;
+		GameObject obj = GameObject.Instantiate(bombPrefab, bombPlaceholder.position, Quaternion.identity) as GameObject;
 		BombController bomb = obj.GetComponent<BombController>();
 		
-		obj.transform.position = bombPlaceholder.position;
+		//obj.transform.position = bombPlaceholder.position;
 
 		Vector3 bombPlaceholderAngle = bombPlaceholder.localEulerAngles;
 		bombPlaceholderAngle.z = 360 - bombPlaceholderAngle.z;

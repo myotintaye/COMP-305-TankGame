@@ -32,6 +32,7 @@ public class BombController : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D col)
     {
         SpawnExplosion();
+        GetComponent<TrailRenderer>().enabled = false;
 
         if (col.gameObject.CompareTag("Box"))
         {

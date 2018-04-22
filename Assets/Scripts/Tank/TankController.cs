@@ -11,7 +11,7 @@ public class TankController : MonoBehaviour {
 	public float maxSpeed = 1f;
 	public float rotationSpeed = 10f;
 
-    public Transform canvas;
+    public Transform infoCanvas;
 
 	private Rigidbody2D rBody;
 	private SpriteRenderer sRend;
@@ -36,7 +36,7 @@ public class TankController : MonoBehaviour {
 	public GameObject shieldProtectionPrefab;
 
 	public int bombChance = 0;
-	private int health = 40;
+	private int health = 60;
 	private int maxHealth = 60;
     private int damage = 20;
 	private bool dealth = false;
@@ -275,7 +275,7 @@ public class TankController : MonoBehaviour {
 
     private void SpawnTooltip(Collision2D col, String msg)
     {
-        var tooltipText = Instantiate(tooltipTextPrefab, transform.position, Quaternion.identity, canvas) as GameObject;
+        var tooltipText = Instantiate(tooltipTextPrefab, transform.position, Quaternion.identity, infoCanvas) as GameObject;
 
 	    tooltipText.transform.position = col.transform.position;
       
@@ -379,7 +379,7 @@ public class TankController : MonoBehaviour {
 	void Deactivate()
 	{
 		playerActivated = false;
-		rBody.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+		//rBody.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
 		
 		overlay.enabled = true;
 	}
@@ -411,6 +411,11 @@ public class TankController : MonoBehaviour {
 	public void UpdatePauseStatus()
 	{
 		isPaused = !isPaused;
+	}
+
+	public void SetDamage()
+	{
+		health -= 20;
 	}
 
 }

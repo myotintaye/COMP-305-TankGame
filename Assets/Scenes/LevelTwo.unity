@@ -291,7 +291,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 3
   rotationSpeed: 10
-  canvas: {fileID: 1405329363}
+  infoCanvas: {fileID: 0}
   defineGround:
     serializedVersion: 2
     m_Bits: 2305
@@ -477,7 +477,7 @@ Transform:
   - {fileID: 1910666856}
   - {fileID: 210692126}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &49516962
 AudioSource:
@@ -695,7 +695,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &165445329
 GameObject:
@@ -882,7 +882,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &248583615
 GameObject:
@@ -1354,7 +1354,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 60
   m_WholeNumbers: 0
-  m_Value: 40
+  m_Value: 60
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -3275,7 +3275,7 @@ Transform:
   - {fileID: 1580428269}
   - {fileID: 1320519797}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &931134623
 Prefab:
@@ -3357,7 +3357,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1015800571
 GameObject:
@@ -3760,7 +3760,7 @@ Prefab:
     - target: {fileID: 223050602375210590, guid: 40d7e858854154408974fb8e84e1e1c9,
         type: 2}
       propertyPath: m_SortingOrder
-      value: 20
+      value: 80
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 40d7e858854154408974fb8e84e1e1c9, type: 2}
@@ -3808,7 +3808,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 3
   rotationSpeed: 10
-  canvas: {fileID: 1405329363}
+  infoCanvas: {fileID: 0}
   defineGround:
     serializedVersion: 2
     m_Bits: 2305
@@ -3974,7 +3974,7 @@ Transform:
   - {fileID: 1026979287}
   - {fileID: 1660198267}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1136388708
 AudioSource:
@@ -4254,7 +4254,7 @@ Prefab:
     - target: {fileID: 223101240012910310, guid: d043180a1ff104933b40101975923bca,
         type: 2}
       propertyPath: m_SortingOrder
-      value: 100
+      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d043180a1ff104933b40101975923bca, type: 2}
@@ -4735,7 +4735,7 @@ RectTransform:
   - {fileID: 1116460659}
   - {fileID: 1168343062}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -5474,7 +5474,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -7323,7 +7323,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 60
   m_WholeNumbers: 0
-  m_Value: 40
+  m_Value: 60
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -7529,5 +7529,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

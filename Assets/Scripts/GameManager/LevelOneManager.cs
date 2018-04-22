@@ -48,8 +48,8 @@ public class LevelOneManager : MonoBehaviour {
 		
 		UpdateBombChance(tankA1);
 		
+		tankA1.SendMessage("SetDamage");
 		
-			
 		float zCamera = mainCamera.transform.position.z;
 		mainCamera.transform.position = new Vector3(tankA1.transform.position.x, tankA1.transform.position.y, zCamera);
 		

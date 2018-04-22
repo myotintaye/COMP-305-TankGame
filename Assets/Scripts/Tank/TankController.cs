@@ -40,6 +40,8 @@ public class TankController : MonoBehaviour {
 	private int maxHealth = 60;
     private int damage = 20;
 	private bool dealth = false;
+	
+	private bool isPaused = false;
 
 	public Sprite deadImage;
 	public Slider healthBar;
@@ -75,7 +77,7 @@ public class TankController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (Input.GetKey(KeyCode.Space) && bombChance > 0 && playerActivated && isFireCooledDown)
+		if (Input.GetKey(KeyCode.Space) && bombChance > 0 && playerActivated && isFireCooledDown && !isPaused)
 		{
 			Fire(initialSpeed);
 		}
@@ -187,7 +189,7 @@ public class TankController : MonoBehaviour {
 
 				healthBar.value = health;
 			
-				SpawnTooltip(col, "Refuel, +20");
+				SpawnTooltip(col, "Health +20");
 			
 				/* Call game manager to update UI panel */
 				gameManager.SendMessage("UpdateHealth", this.gameObject);
@@ -404,6 +406,11 @@ public class TankController : MonoBehaviour {
 	public bool isDead()
 	{
 		return dealth;
+	}
+	
+	public void UpdatePauseStatus()
+	{
+		isPaused = !isPaused;
 	}
 
 }

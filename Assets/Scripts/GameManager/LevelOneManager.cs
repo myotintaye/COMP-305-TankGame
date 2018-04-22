@@ -35,6 +35,7 @@ public class LevelOneManager : MonoBehaviour {
 	private bool getShield = false;
 	private bool getTimer = false;
 
+
 	// Use this for initialization
 	void Start () {
 		
@@ -121,6 +122,11 @@ public class LevelOneManager : MonoBehaviour {
 		
 		txtGetTimer.text = "3. Got Timer";
 		imgTimerDone.enabled = true;
+	}
+
+	void UpdatePauseStatus()
+	{
+		tankA1.SendMessage("UpdatePauseStatus");
 	}
 
 }

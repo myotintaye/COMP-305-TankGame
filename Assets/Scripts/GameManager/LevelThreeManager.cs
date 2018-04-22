@@ -418,5 +418,13 @@ public class LevelThreeManager : MonoBehaviour {
 	{
 		getMedicalKit = true;
 	}
+	
+	void UpdatePauseStatus()
+	{
+		tankA1.SendMessage("UpdatePauseStatus");
+		tankA2.SendMessage("UpdatePauseStatus");
+		tankB1.SendMessage("UpdatePauseStatus");
+		tankB2.SendMessage("UpdatePauseStatus");
+	}
 
 }

@@ -240,5 +240,11 @@ public class LevelTwoManager : MonoBehaviour
 	{
 		getMedicalKit = true;
 	}
+	
+	void UpdatePauseStatus()
+	{
+		tank1.SendMessage("UpdatePauseStatus");
+		tank2.SendMessage("UpdatePauseStatus");
+	}
 
 }

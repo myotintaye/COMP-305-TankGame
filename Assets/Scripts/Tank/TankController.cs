@@ -191,6 +191,10 @@ public class TankController : MonoBehaviour {
 			
 				/* Call game manager to update UI panel */
 				gameManager.SendMessage("UpdateHealth", this.gameObject);
+				
+				
+				/* Inform game manager, mainly for level one */
+				gameManager.SendMessage("AddMedicalKit");
 
 				break;
 			
@@ -240,7 +244,9 @@ public class TankController : MonoBehaviour {
 				shieldProtectionPrefab.SetActive(true);
 				SpawnTooltip(col, "Shield Protection");
 			
-
+				/* Inform game manager, mainly for level one */
+				gameManager.SendMessage("AddShield");
+				
 				break;
 			
 			case "ExtraBomb":

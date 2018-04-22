@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class LevelOneManager : MonoBehaviour {
 
 
-	public float timer = 30000f;
+	public float timer = 120f;
 	
 	public int totalRound;
 	public int currentPlayer;
@@ -15,19 +15,39 @@ public class LevelOneManager : MonoBehaviour {
 	public Camera mainCamera;
 	
 	public GameObject tankA1;
-	
+
+	public Text txtHealth;
+	public Text txtBombChance;
 	public Text txtTimeLeft;
+
+	public Text txtGetMedicalKit;
+	public Text txtGetShield;
+	public Text txtGetTimer;
+
+	public Image imgMedicalDone;
+	public Image imgShieldDone;
+	public Image imgTimerDone;
+	
 	public Text txtWinningMessage;	
 	public GameObject gameOverPanel;
 
+	private bool getMedicalKit = false;
+	private bool getShield = false;
+	private bool getTimer = false;
+
 	// Use this for initialization
 	void Start () {
+		
 		totalRound = 1;
 		
 		currentPlayer = 0; 
 //		
 //		tankA1.SendMessage("Deactivate");	
 //		tankA1.SendMessage("Activate");
+		
+		UpdateBombChance(tankA1);
+		
+		
 			
 		float zCamera = mainCamera.transform.position.z;
 		mainCamera.transform.position = new Vector3(tankA1.transform.position.x, tankA1.transform.position.y, zCamera);
@@ -44,31 +64,63 @@ public class LevelOneManager : MonoBehaviour {
 		if (timer <= 0)
 		{
 			/* Game over */
-			txtWinningMessage.text = "Congratulations!";
+			txtWinningMessage.text = "Time's up..";
 			gameOverPanel.SetActive(true);
 		}
+
+		if (checkWinning())
+		{
+			txtWinningMessage.text = "Well done! You passed the tutorial.";
+			gameOverPanel.SetActive(true);		
+		}
+		
 	}
 	
-	void UpdateHealth(GameObject tank)
+	bool checkWinning()
 	{
-		String hitTank = tank.name;
-
-//		Debug.Log("Hit tank = " + hitTank);
-//
-//		if (hitTank == "Tank1")
-//		{
-//			txtTankAHealth.text = "Health: " + tank.GetComponent<TankController>().GetHealth().ToString();
-//		}
-//		else
-//		{
-//			txtTankBHealth.text = "Health: " + tank.GetComponent<TankController>().GetHealth().ToString();
-//		}
+		if (getMedicalKit && getShield && getTimer)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
+	void UpdateHealth(GameObject tank)
+	{
+		txtHealth.text = tank.GetComponent<TankController>().GetHealth().ToString();
+	}
+
+	void UpdateBombChance(GameObject tank)
+	{
+		txtBombChance.text = tank.GetComponent<TankController>().GetBombChance().ToString();
+	}
+
+	void AddMedicalKit()
+	{
+		getMedicalKit = true;
+		
+		txtGetMedicalKit.text = "1. Got Medical Kit";
+		imgMedicalDone.enabled = true;
+	}
+	
+	void AddShield()
+	{
+		getShield = true;
+		
+		txtGetShield.text = "2. Got Shield";
+		imgShieldDone.enabled = true;
+	}
+	
 	void AddTime()
 	{
 		timer += 5;
+		getTimer = true;
+		
+		txtGetTimer.text = "3. Got Timer";
+		imgTimerDone.enabled = true;
 	}
-	
 
 }

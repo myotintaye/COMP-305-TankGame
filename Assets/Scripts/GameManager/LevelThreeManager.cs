@@ -41,6 +41,10 @@ public class LevelThreeManager : MonoBehaviour {
 	public GameObject gameOverPanel;
 
 	private bool isInTransition = false;
+	private bool getMedicalKit = false;
+	private bool getShield = false;
+	private bool getTimer = false;
+
 
 	// Use this for initialization
 	void Start () {
@@ -401,7 +405,18 @@ public class LevelThreeManager : MonoBehaviour {
 	void AddTime()
 	{
 		timer += 5;
+		getTimer = true;
 	}
 	
+	
+	void AddShield()
+	{
+		getShield = true;
+	}
+
+	void AddMedicalKit()
+	{
+		getMedicalKit = true;
+	}
 
 }

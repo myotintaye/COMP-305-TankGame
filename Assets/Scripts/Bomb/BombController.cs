@@ -1,8 +1,10 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class BombController : MonoBehaviour {
 
@@ -13,6 +15,11 @@ public class BombController : MonoBehaviour {
 	private AudioSource asShoot;
 	public AudioClip acMapExplosion;
 	public AudioClip acBoxExplosion;
+	
+	public GameObject timerPrefab;
+	public GameObject shieldPrefab;
+	public GameObject fuelPrefab;	
+	public GameObject extraBombPrefab;
 
 	// Use this for initialization
 	void Start ()
@@ -34,51 +41,136 @@ public class BombController : MonoBehaviour {
         SpawnExplosion();
         GetComponent<TrailRenderer>().enabled = false;
 
-        if (col.gameObject.CompareTag("Box"))
-        {
-            Debug.Log("Hit box");
+	    switch (col.gameObject.tag)
+	    {
+		    case "Box":
+			    generateObject(col.gameObject.transform);
+			    Destroy(col.gameObject);
+			    
+			    asShoot.clip = acBoxExplosion;
+			    bombExplosion();
+			    
+			    break;
+		    
+		    case "Map":
 	        
-	        _renderer.enabled = false;
-	        _collider2D.enabled = false;
+			    asShoot.clip = acMapExplosion;
+			    bombExplosion();
 
-	        asShoot.clip = acBoxExplosion;
-	        asShoot.Play();
+			    break;
+		    
+		    case "Player":
+			    asShoot.clip = acBoxExplosion;
+			    bombExplosion();
+			    
+			    break;
+		    
+		    case "Timer":
+			    asShoot.clip = acBoxExplosion;
+			    bombExplosion();
+			    
+			    Destroy(col.gameObject);
+			    
+			    break;
+		    
+		    case "Fuel":
+			    asShoot.clip = acBoxExplosion;
+			    bombExplosion();
+			    
+			    Destroy(col.gameObject);
+			    
+			    break;
 
-	        
-	        Destroy(gameObject, asShoot.clip.length);
-            Destroy(col.gameObject);
-	        
-        }
-        else if (col.gameObject.name == "Map")
-        {
-	        Debug.Log("Hit map");
-	        
-	        _renderer.enabled = false;
-	        _collider2D.enabled = false;
-	        
-	        asShoot.clip = acMapExplosion;
-	        asShoot.Play();
-	        
-	        Destroy(gameObject, asShoot.clip.length);
-        }
+		    case "Shield":
+			    
+			    asShoot.clip = acBoxExplosion;
+			    bombExplosion();
+			    
+			    Destroy(col.gameObject);
+			    
+			    break;
+		    
+		    case "ExtraBomb":
+			    asShoot.clip = acBoxExplosion;
+			    bombExplosion();
+			    
+			    Destroy(col.gameObject);
+			    
+			    break;		 
+		    
+//		    case "ShieldProtection":
+//			    
+//			    Debug.Log("Enter shield protection collision");
+//			    
+//			    asShoot.clip = acBoxExplosion;
+//			    bombExplosion();
+//			    
+//			    col.gameObject.SetActive(false);
+////			    Destroy(col.gameObject);			
+//			    
+////			    if (col.gameObject.GetComponentInParent(typeof(GameObject)).name !=
+////			        gameObject.GetComponentInParent(typeof(GameObject)).name)
+////			    {
+////				    asShoot.clip = acBoxExplosion;
+////				    bombExplosion();
+////			    
+////				    Destroy(col.gameObject);			    
+////			    }
+//			    
+//			    break;		
+		    
+		    default:
+			    break;
+	    }
 
-        /* Avoid hit to be counted multiple times */
-        if (col.gameObject.CompareTag("Player"))
-        {
-	        _renderer.enabled = false;
-	        _collider2D.enabled = false;
-	        
-	        asShoot.clip = acBoxExplosion;
-	        asShoot.Play();
-	        
-	        Destroy(gameObject, asShoot.clip.length);
-        }
 
     }
+
+	private void bombExplosion()
+	{
+		_renderer.enabled = false;
+		_collider2D.enabled = false;
+		
+		asShoot.Play();
+	        
+		Destroy(gameObject, asShoot.clip.length);
+	}
 
     private void SpawnExplosion()
     {
         var explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity) as GameObject;
         Destroy(explosion, 2f);
     }
+
+	private void generateObject(Transform transform)
+	{
+		int num = Random.Range(0, 4);
+
+		switch (num)
+		{
+			
+			case 0:
+				GameObject timer = GameObject.Instantiate(timerPrefab, transform.position, Quaternion.identity) as GameObject;
+				break;
+			
+			case 1:
+				GameObject shield = GameObject.Instantiate(shieldPrefab, transform.position, Quaternion.identity) as GameObject;
+				break;
+			
+			case 2:
+				GameObject fuel = GameObject.Instantiate(fuelPrefab, transform.position, Quaternion.identity) as GameObject;
+				break;
+				
+			case 3:
+				GameObject extraBomb = GameObject.Instantiate(extraBombPrefab, transform.position, Quaternion.identity) as GameObject;
+				break;
+			
+			default:
+				break;
+		}
+		
+		
+	}
+
+	
 }

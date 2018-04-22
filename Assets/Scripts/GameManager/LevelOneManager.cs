@@ -16,7 +16,7 @@ public class LevelOneManager : MonoBehaviour {
 	
 	public GameObject tankA1;
 	
-		
+	public Text txtTimeLeft;
 	public Text txtWinningMessage;	
 	public GameObject gameOverPanel;
 
@@ -39,11 +39,11 @@ public class LevelOneManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		timer -= Time.deltaTime;
+		txtTimeLeft.text = Mathf.FloorToInt(timer).ToString();		
 
 		if (timer <= 0)
 		{
 			/* Game over */
-			
 			txtWinningMessage.text = "Congratulations!";
 			gameOverPanel.SetActive(true);
 		}
@@ -64,5 +64,11 @@ public class LevelOneManager : MonoBehaviour {
 //			txtTankBHealth.text = "Health: " + tank.GetComponent<TankController>().GetHealth().ToString();
 //		}
 	}
+
+	void AddTime()
+	{
+		timer += 5;
+	}
+	
 
 }

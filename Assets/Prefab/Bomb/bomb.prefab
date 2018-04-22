@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 82971472391835366}
   - component: {fileID: 60419073113941018}
   - component: {fileID: 96159370013076032}
-  m_Layer: 12
+  m_Layer: 11
   m_Name: bomb
   m_TagString: Bomb
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1914412875483328}
   m_LocalRotation: {x: 0.00005627936, y: 0.0017185336, z: -0.001306265, w: 0.9999977}
-  m_LocalPosition: {x: -0.981, y: -2.759, z: -9.829}
+  m_LocalPosition: {x: -0.981, y: -2.759, z: 0}
   m_LocalScale: {x: 0.4291434, y: 0.4291434, z: 0.4291434}
   m_Children: []
   m_Father: {fileID: 0}
@@ -284,6 +284,13 @@ MonoBehaviour:
   explosionPrefab: {fileID: 139366, guid: b185c1a9cf067374586d095111b15bd1, type: 2}
   acMapExplosion: {fileID: 8300000, guid: 95303f8740ce34cf087f1fe94adc14e3, type: 3}
   acBoxExplosion: {fileID: 8300000, guid: 8ce2ba74d3ac946ac9b102002acced64, type: 3}
+  timerPrefab: {fileID: 1043037156519502, guid: fbe7d43b6ccf1466198517bb807f29f3,
+    type: 2}
+  shieldPrefab: {fileID: 1943997666334122, guid: f8a8d4a24c7594ac0b403aa6d591d1ab,
+    type: 2}
+  fuelPrefab: {fileID: 1471047215203630, guid: de785edeed9b2484986ff9ab5fd58bda, type: 2}
+  extraBombPrefab: {fileID: 1285834063711158, guid: 6704f6e9ee247413297dbbfce87916f5,
+    type: 2}
 --- !u!212 &212442614679332664
 SpriteRenderer:
   m_ObjectHideFlags: 1

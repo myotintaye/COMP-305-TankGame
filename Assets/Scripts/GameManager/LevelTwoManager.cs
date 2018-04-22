@@ -219,5 +219,10 @@ public class LevelTwoManager : MonoBehaviour
 		}
 	
 	}
+	
+	void AddTime()
+	{
+		timer += 5;
+	}
 
 }

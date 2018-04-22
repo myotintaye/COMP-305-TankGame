@@ -10,6 +10,11 @@ TagManager:
   - Canvas
   - Fuel
   - Box
+  - Timer
+  - Shield
+  - Map
+  - ExtraBomb
+  - ShieldProtection
   layers:
   - Default
   - TransparentFX

@@ -398,5 +398,10 @@ public class LevelThreeManager : MonoBehaviour {
 		}		
 	}
 	
+	void AddTime()
+	{
+		timer += 5;
+	}
+	
 
 }

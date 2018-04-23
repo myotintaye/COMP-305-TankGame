@@ -1514,7 +1514,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 4
   rotationSpeed: 10
-  canvas: {fileID: 671885407}
+  infoCanvas: {fileID: 671885407}
   defineGround:
     serializedVersion: 2
     m_Bits: 256
@@ -4400,7 +4400,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 6
   rotationSpeed: 10
-  canvas: {fileID: 671885407}
+  infoCanvas: {fileID: 671885407}
   defineGround:
     serializedVersion: 2
     m_Bits: 256
@@ -4969,7 +4969,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 6
   rotationSpeed: 10
-  canvas: {fileID: 671885407}
+  infoCanvas: {fileID: 671885407}
   defineGround:
     serializedVersion: 2
     m_Bits: 256
@@ -8358,7 +8358,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 4
   rotationSpeed: 10
-  canvas: {fileID: 671885407}
+  infoCanvas: {fileID: 671885407}
   defineGround:
     serializedVersion: 2
     m_Bits: 256

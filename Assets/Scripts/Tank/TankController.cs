@@ -277,7 +277,7 @@ public class TankController : MonoBehaviour {
     {
         var tooltipText = Instantiate(tooltipTextPrefab, transform.position, Quaternion.identity, infoCanvas) as GameObject;
 
-	    tooltipText.transform.position = col.transform.position;
+	    tooltipText.transform.position = new Vector3(col.transform.position.x, col.transform.position.y + 2, col.transform.position.z);
       
         var text = tooltipText.GetComponent<Text>();
         text.text = msg;

@@ -291,7 +291,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 3
   rotationSpeed: 10
-  infoCanvas: {fileID: 0}
+  infoCanvas: {fileID: 1405329363}
   defineGround:
     serializedVersion: 2
     m_Bits: 2305
@@ -3808,7 +3808,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 3
   rotationSpeed: 10
-  infoCanvas: {fileID: 0}
+  infoCanvas: {fileID: 1405329363}
   defineGround:
     serializedVersion: 2
     m_Bits: 2305

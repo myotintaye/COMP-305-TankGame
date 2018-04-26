@@ -4111,6 +4111,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1458388593}
   - component: {fileID: 1458388592}
+  - component: {fileID: 1458388594}
   m_Layer: 9
   m_Name: mars_background
   m_TagString: Untagged
@@ -4175,6 +4176,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!68 &1458388594
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1458388591}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -7.98008, y: 3.0271003}
+  - {x: -8.029371, y: -3.306678}
+  - {x: -8.050541, y: -4.412615}
+  - {x: 4.7705436, y: -4.6112556}
+  - {x: 8.0371275, y: -4.4948277}
+  - {x: 8.031091, y: 2.7662978}
 --- !u!1 &1476908249
 GameObject:
   m_ObjectHideFlags: 0

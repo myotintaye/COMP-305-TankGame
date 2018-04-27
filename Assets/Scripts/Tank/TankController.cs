@@ -231,6 +231,8 @@ public class TankController : MonoBehaviour {
 			
 				/* Call game manager to add time */
 				gameManager.SendMessage("AddTime");
+				
+				SpawnTooltip(col, "Timer +5s");
 			
 				Destroy(col.gameObject);
 

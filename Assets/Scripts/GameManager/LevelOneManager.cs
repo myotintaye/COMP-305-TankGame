@@ -27,6 +27,7 @@ public class LevelOneManager : MonoBehaviour {
 	public Image imgMedicalDone;
 	public Image imgShieldDone;
 	public Image imgTimerDone;
+	public Image imgInstructions;
 	
 	public Text txtWinningMessage;	
 	public GameObject gameOverPanel;
@@ -60,7 +61,12 @@ public class LevelOneManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		timer -= Time.deltaTime;
-		txtTimeLeft.text = Mathf.FloorToInt(timer).ToString();		
+		txtTimeLeft.text = Mathf.FloorToInt(timer).ToString();
+
+		if (timer <= 290)
+		{
+			imgInstructions.enabled = false;
+		}
 
 		if (timer <= 0)
 		{

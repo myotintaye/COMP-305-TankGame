@@ -63,7 +63,7 @@ public class LevelOneManager : MonoBehaviour {
 		timer -= Time.deltaTime;
 		txtTimeLeft.text = Mathf.FloorToInt(timer).ToString();
 
-		if (timer <= 290)
+		if (timer <= 295)
 		{
 			imgInstructions.enabled = false;
 		}
